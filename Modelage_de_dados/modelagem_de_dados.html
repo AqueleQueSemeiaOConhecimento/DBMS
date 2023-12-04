@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelagem - Banco de Dados</title>
+
+    <style>
+        body{
+            padding: 10px;
+        }
+        article{
+            border-bottom: solid 1px black;
+        }
+        table{
+            border: solid 1px black;
+        }
+        td{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+        th{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+
+        #td{
+            padding-left: 48%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1> Modelagem - Banco de Dados</h1>
+        </div>
+    </header>
+
+    <article>
+        <div>
+            <h2>
+                Entidade
+            </h2>
+        </div>
+        <div>
+            <h4>Linhas Gerais</h4>
+            <ul>
+                <li>Algo de importância para um usuário</li>
+                <li>Representa um tema, tópico ou conceito de negócio</li>
+                <li>Cada Objeto de ma entidade é chamado de <b>Instância de Entidade</b></li>
+                <li>Uma entidade pode ter existência física ou abstrata</li>
+            </ul>
+            <p><b>Ex:</b> Empregados, Livros, Vendas, Produtos.</p>
+        </div>
+        <div>
+            <h4>Nomenclatura Geral</h4>
+            <ul>
+                <li>NOmeamos as entidades usando substantivos que representam de forma clara e <br>
+                objetiva sua função.</li>
+                <li>Por exemplo, podemos ter em um sistema as entidades Produto, Cliente, Venda, Estoque <br>
+                Catálogo, entre outras.</li>
+                <li>Nomes de entidade é no singular / boas práticas.</li>
+                <li>Os nomes das entidades devem estar em retangulos.</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Regras de nomeação</h4>
+            <ul>
+                <li>Devem começar com uma letra;</li>
+                <li>Usar palavra no singular;</li>
+                <li>Não podem ter espaços ou caracteres especiais;</li>
+                <li>Alguns caracteres como "$","#" e "_" são permitidos em alguns bancos de dados; </li>
+                <li>Os nomes de colunas dever ser únicos dentro de uma tabela;</li>
+                <li>Os nomes de entidades / tabelas devem ser unicos dentro de esquema</li>
+            </ul>
+        </div>
+    </article>
+
+    <article>
+        <div>
+            <h2>
+                Atributos
+            </h2>
+        </div>
+        <div>
+            <h4>Atributo em linhas gerais</h4>
+            <ul>
+                <li>Os atributos descrevem características da entidade, como por exemplo: fabricante, modelo, cor, placa, etc.</li>
+                <li>Os atributos possuem um tipo de dados (domínio) nome e valor específico.</li>
+                <li>Os atributos podem ser representados por uma elipse contendo o seu nome, ligada à entidade que qualifica.</li>
+                <li>Opcionalmente, podemos representar um atribulo apenas pelo seu nome ligado à entidade, sem utilizar a elipse.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Tipos de Atributos</h3>
+            <ul>
+                <li>Os atributos podem ser de vários tipos, tais como:</li>
+                <li>Simples;</li>
+                <li>Composto;</li>
+                <li>Multivalorado;</li>
+                <li>Determinante;</li>
+                <li>Identicador</li>
+                <p>entre outros.</p>
+            </ul>   
+        </div>
+        <div>        
+            <ul>
+                <h4>Atributo Simples/Atômico</h4>
+                <li>Não possui caracteristicas especiais e são indivisiveis.</li>
+                <p><b>Ex: </b>Nome da empresa, CPOF, CNPJ</p>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributo Composto</h4>
+                <li>É formado por itens menores; Pode ser subdividido em outros atrinbutos.</li>
+                <p><b>Ex: </b>Endereçi da empresa.</p>
+                <p><i>Empresa: Endereço</i></p>
+                <ul>
+                    <li>Endereço --- Rua</li>
+                    <li>Endereço --- CEP</li>
+                    <li>Endereço --- Bairro</li>
+                </ul>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributo Multivalorado</h4>
+                <li>Pode conter mais de um valor par aum mesmo registro (informação).</li>
+                <p><b>Ex: </b>Telefone da empresa</p>
+                <p><i>Empresa --- *Telefone</i></p>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributo Determinante</h4>
+                <li>Define de forma única as instâncias de uma entidade. <br>
+                Não podem existir duas instâncias com o mesmo valor nesse atributo.</li>
+                <p><b>Ex: </b>CNPJ da empresa, Código de Produto</p>
+                <p><i>Empresa --- CNPJ</i></p>
+                <p><b>obs:</b> Quando temos um atributo determinante é de boas maneiras que ele tenha underline.</p>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributos identificados ("Chaves")</h4>
+                <p>Uma <i>Chave</i> identifica ua instância especifica na classe de entidade.</p>
+                <p><b>Ex: </b>CPF, CódigoProduto, Matrícula, ID_Setor</p>
+
+                <h5>As Chaves podem ser únicas ou não-únicas:</h5>
+                <li>Únicas: O valor dos dados da chave é único na entidade;</li>
+                <li>Não-única: Usada para agrupar instâncias de classe em categorias;</li>
+                <li><i>As chaves podem ser compostas, consistindo em dois ou mais atributos combinados.</i></li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Entedidade x Relação</h2>
+        </div>
+        <div>
+            <h3>Entidade x Relação em linhas gerais</h3>
+            <ul>
+                <li>Uma Entidade é um conceito do mundo real, como por exemplo um cliente ou um produto</li>
+                <br>
+                <li>Uma Relação é um conjunto de registros que representam um modelo de uma entidade.</li>
+                <li>Cada registro representa uma instância de entidade, e o conjunto de todas as instâncias , com <br>
+                seus atributos, é chamado de Relação.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Relação</h3>
+            <ul>
+                <p>Tabela bidimensional com caracteristicas especificas, composta por linhas e colunas, criada a partir de uma entidade.</p>
+                <br>
+                <p>Caracteristicas de uma relação:</p>
+                <li>Linhas contém dados sobre instância de uma entidade (registro);</li>
+                <li>Colunas contém dados sobre atributos da entidade (campos);</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Relação - Caracteristicas - cont.</h3>
+            <ul>
+                <li>Cada célula da tabela armazena um único valor;</li>
+                <li>Todos os valores de uma coluna são do mesmo tipo (domínio);</li>
+                <li>Cada coluna possui um nome único;</li>
+                <li>Não há duas linhas idênticas;</li>
+                <li>As relações geralmente geram tabelas no banco;</li>
+            </ul>
+
+            <h3>Relação - Exemplo Completo</h3>
+            <h4>Entidade/Tabela: Produto</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cód</th> <th>Mercadoria</th> <th>Qtde_Estoque</th> <th>Fornecedor</th> <th>Validade</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <td id="td" colspan="5">...</td>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>189</td> <td>Azeitonas Pretas</td> <td>50</td> <td>05</td> <td>02/08/2017</td>
+                    </tr>
+                    <tr>
+                        <td>222</td> <td>Peixe Congelado</td> <td>26</td> <td>08</td> <td>22/09/2016</td>
+                    </tr>
+                    <tr>
+                        <td>236</td> <td>Enlatado</td> <td>48</td> <td>09</td> <td>07/12/2017</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>
+                Relacionamentos
+            </h2>
+        </div>
+        <div>
+            <h3>Relacionamentos em linhas gerais</h3>
+            <ul>
+                <li>As estidades podem ser conectadas entre si por meio de Relacionamentos. <br>
+                Trata-se de uma estrutura que indica a associação de elementos de uma  ou mais entidades. </li>
+                <h3>Porque precisamos de relacionamentos?</h3>
+                <li>Como os dados de diferentes entidades são armazenados em tabelas distintas, geralmente precisamos <br>
+                combinar duas ou mais tabelas para responder às perguntas específicas dos usuários.</li>
+                <li>Por exemplo, podemos querer saber quais produtos, e em qual quantidade, fora adquiridos por um cliente em particular. <br>
+                Precisamos então de dados das tabelas de clientes, de pedidos e produtos para obter essa informação.-</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Representando relacionamentos</h3>
+
+            <ul>
+                <li>
+                    Representamos um relacionamento em um DER por meio de um Losango que conecta uma ou mais entidades:
+                </li>
+            </ul>
+            <p><i>"Entidade A"</i> <b>---</b> <i>"<b>Losango:</b>"Relacionamento</i> <b>---</b> <i>"Entidade B"</i></p>
+        </div>
+        <div>
+            <h3>Grau de um Relacionamento</h3>
+            <p>O grau de um relacionamento define o número de entidades que participam do relacionamento. <br>
+            Assim, um relacionamento pode ser:</p>
+            <ul>
+                <li>Unário</li>
+                <li>Binário</li>
+                <li>Ternário</li>
+            </ul>
+            <p><b>obs: </b>Os relacionamentos mais comuns são os de grau dois (binários).</p>
+        </div>
+        <div>
+            <h3>Efetuando relacionamento entre múltiplas tabelas</h3>
+            <ul>
+                <li>Cada linha de dados em uma tabela deve ser identificada de forma única usando-se uma <br>
+                Chave Primária (identificador exclusivo).</li>
+                <li>Usamos uma Chave Estrageira para relacionar os dados entre múltiplas tabelas.</li>
+                <li>Usamos para isso o relacionamento entre chave primária de uma tabela com a chave estrangeira em outra tabela.</li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Chaves</h2>
+        </div>
+        <div>
+            <h3>Chaves em linhas gerais</h3>
+            <p>Uma chave consiste em uma ou mais colunas de uma relação cujos valores são usados para identificar de forma exclusiva uma linha ou conjunto de linha. <br>
+            Pode ser única (identifica uma única linha) ou não-única (identifica um conjunto de linhas).</p>
+            <br>
+            <p>Únicas (Unique): Candidata, Composta, Primária, Surrogada, Não-Única (Non-Unique): Estrangeira</p>
+        </div>
+        <div>
+            <h3>Chave Candidata</h3>
+            <ul>
+                <li>Atributo ou grupo de atributos com o potencial para se tornarem uma chave primária.</li>
+                <li>Uma chave candidata que não seja usada como chave primária será conhecida com <b>Chave Alternativa</b>.</li>
+                <p><b>Ex: </b>Campos Num_Matrícula e CPF em uma tabela com registro de alunos.</p>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Primária</h3>
+            <ul>
+                <li>Chave candidata escolhida para ser a <i>chave principal</i> na relação.</li>
+                <li>Identifica de fomra <i>exclusiva</i> os registros em uma tabela, não podendo ter repetição <br>
+                de valores nem tampouco valor nulo.</li>
+                <li>Primary Key/PK</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Estrangeira</h3>
+            <ul>
+                <li>Coluna de uma tabela que estabelece um <i>Relacionamento com a Chave Primária</i> (PK) de outra tabela.</li>
+                <li>É a partir da chave estrangeria (Foreign key/FK) que sabemos com qual registro em outra tabela um registro está relacionado.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Composta</h3>
+            <ul>
+                <li>Chave que é composta de dois ou mais atributos (colunas).</li>
+                <li>Geralmente empregada quando ão é possível utilizar uma única coluna de uma tabela para identificar de forma exclusiva seus registros.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Sugorraga/Substituta</h3>
+            <ul>
+                <li>Valor numérico, único, adicionado a uma relação para servir como chave primária.</li>
+                <li>Não possui significado para os usuários e geralmente fica escondida nas aplicações.</li>
+                <li>As chaves substitutas são frequentemente usadas no lugar de uma chave primária composta.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Instruções para criação de chaves primárias e estrangeiras</h3>
+            <ul>
+                <li>Não é possivel haver valores duplicados em uma chave primária</li>
+                <li>no geral, não é possivel alterar o valor de uma chave primaria</li>
+                <li>Chaves estrangeiras são baseadas em valores de dados, classificadas como ponteiros lógicos</li>
+                <li>Um valor de uma chave estrangeira deve corresponder a um valor existente em uma chave primária associada (ou valor de chave única). <br>
+                Caso contrário, deve ser nulo (NULL)</li>
+                <li>Uma chave estrangeira deve referenciar uma chave primária ou uma coluna de chave única</li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Conceito de Dominio</h2>
+            <ul>
+                <li>Definir tipos de dados</li>
+                <li>Especificar valores váçidos em um campo</li>
+            </ul>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr> <th colspan="3">tbl_Clientes</th></tr>
+                    <tr> <th>Campo</th> <th>Tipo de Dado</th> <th>Tamanho</th></tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td> ID_Cliente</td> <td> Número</td> <td>4 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>Nome_Cliente</td> <td>Caractere</td> <td>40 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>CPF_Cliente</td> <td>Caractere</td> <td>11 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>Data Nasc</td> <td>Data e Hora</td> <td>8 caracteres</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Cardinalidade</h2>
+        </div>
+        <div>
+            <h3>Cardinalidade em linhas gerais</h3>
+            <p>A cardinalidade diz respeitos ao número de itens que se relacionam nas entidades.</p>
+            <p>A cardinalidade pode ser máxima ou mínima, significando respectivamente os números minimo e máximo de instâncias <br>
+            de cada entidade associadas no relacionamento.</p>
+            <br>
+            <p><b>Cardinalidade Máxima: </b>Trata-se do número máximo de instâncias de entidade que podem participar em um relacionamento. Pode ser 1 ou N(muitos).</p>
+            <br>
+            <p><b>Cardinalidade Mínima: </b>Número mínimo de instâncias de entidade que devem obrigatoriamente participar em um relacionamento. Zero é participação opcional e um é obrigatoria.</p>
+        </div>
+        <div>
+            <h3>Exemplo de Cardinalidade</h3>
+            <p>obs: Modelo de Peter Chen</p>
+            <p><b>Entidade: Cliente</b> (1,1)--- <b>Relação: Solicita </b> ---(1,N) <b>Entidade: Encomenda</b> </p>
+        </div>
+        <div>
+            <h3>Relacionamento Binário um-para-um</h3>
+            <p><b>1:1</b></p>
+            <p>Uma instância de entidade única em uma entidade está relacionada com uma instância de entidade única de outra entidade.</p>
+            <br>
+            <p><b><i>Ex:</i></b></p>
+            <p><b>Entidade: Professor</b> (1,1) ---- <b>Relacionamento: Usa </b> ---- (1,1) <b>Entidade: Armário</b></p>
+        </div>
+        <div>
+            <h3>Relacionamento Binário um-para-muitos <br>
+            1:N</h3>
+            <p>Uma instância de entidade única em uma classe de entidade está relacionada a muitas instâncias de entidade em outra classe de entidade.</p>
+            <br>
+            <p><b><i>Ex.:</i></b></p>
+
+            <p><b>Entidade: Funcionário</b> (1,N) ---- <b>Relacionamento: Trabalho</b> ---- (1,1) <b>Entidade: Departamento</b></p>
+        </div>
+        <div>
+            <h3>Relacionamento Binário muitos-para-muitos <br> N:M</h3>
+            <p>Muitas instâncias em uma entidade estão relacionadas a muitas instâncias de entidade em outra entidade.</p>
+            <p><b>Ex.: </b></p>
+            <p><b>Entidade: Cliente</b> (1,N) ---- <b>Relacionamento: Adquite</b> ---- (1,N) <b>Entidade: Pacote</b></p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Restrições de integridade</h2>
+        </div>
+        <div>
+            <h3>Integridade de Dados</h3>
+            <p>Manutenção e garantia de consistência e presição dos dados, sendo um aspecto critico no desing, implementação e uso de sistemas de armazenamento de dados. 
+                <br> A integridade é atingida por meio da aplicação de <b><i>Restrições de integridade</i></b>
+            </p>
+            
+            <h4>Restrições de integridade</h4>
+            <ul>
+                <li>Integridade Referencial;</li>
+                <li>Integridade de Dominio;</li>
+                <li>Integridade de Vazio;</li>
+                <li>Integridade da Chave/</li>
+                <li>Integridade Definida pelo Usuário;</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Integridade de Domínio</h3>
+            <p>Valores inseridos em uma coluna devem sempre obeceder à definição dos valores que são permitidos para essa coluna - os valores do domínio.</p>
+            <p><b>Ex.: </b>em uma coluna que aramazena preços de mercadorias, os valores admitidos são do domínio numérico - ou seja, apenas números.</p>
+
+            <h4>Integridade de Dominio - Fatores</h4>
+            <ul>
+                <li>Tipo de Dado do campo;</li>
+                <li>Representação interna do tipo de dado;</li>
+                <li>Presença ou não do dado;</li>
+                <li>Inervalos de valores do domínio;</li>
+                <li>Conjuntos de valores discretos;</li>
+            </ul>
+
+            <h4>Integridade de Dominio - Exemplo:</h4>
+            <p>Atributo <b>Preço do Produto: </b>Valor monetário</p>
+            <ul>
+                <li>Valor Permitido:
+                    <ul>
+                        <li>25,33</li>
+                    </ul>
+                </li>
+                <li>Valores não permitidos:
+                    <ul>
+                        <li>25 reais e 33 centavos</li>
+                        <li>-32,33</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Integridade Referencial</h3>
+            <p>Uma restrição de integridade Referencial assegura que valores de uma coluna em uma tabela são válidos <br>
+            baseados nos valores em uma outra tabela relacionada.</p>
+            <p><b>Ex.: </b>Se um produto de ID 523 foi cadastrado em uma tabela de Vendas, então um produto com ID 523 deve existir na tabela de Produtos relacionada.</p>
+            <p><b>Ex2.: </b>Atributo <b><i>Nome_Produto: </i></b>Caracteres</p>
+            
+            <ul>
+                <li>Valores permitidos (produtos cadastrados):
+                    <ul>
+                        <li>Água</li>
+                        <li>Refrigerante</li>
+                        <li>Suco</li>
+                    </ul>
+                </li>
+                <li> Valores não permitidos para venda (não existem na tabela de produtos):
+                    <ul>
+                        <li>Cerveja</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h4>Integridade Referencial - Atualização e Exclusão</h4>
+            <p>Se um registro for excluido em uma tabela, então os registros relacionados em outras tabelas que o referenciam talvez precisem ser excluidos.</p>
+            <p>Caso contrário ocorrerá erro. O mesmo se dá com atualização de registros.+</p>
+        </div>
+        <div>
+            <h3>Integridade de Vazio</h3>
+
+            <p>Este tipo de integridade informa se a coluna é obrigatória ou opcional - ou seja, se é possível não inserir um valor na coluna;</p>
+            <p>Uma coluna de chave promária, por exemplo, sempre deve ter dados inseridos, e nunca pode estar vazia, para nenhum registro.</p>
+        </div>
+        <div>
+            <h4>Valores Nulos (NULL)</h4>
+            <p>Um valor NULL significa que não existem dados. É diferente de zero,m espaço, string vazia ou tabulação.</p>
+            <p>Os nulos podem ser problemáticos, pois indicam:</p>
+            <ul>
+                <li>O valor da coluna não é apropriado;</li>
+                <li>O valor não foi inserido;</li>
+                <li>O valor é desconhecido;</li>
+            </ul>
+
+            <h4>Exemplo de Valores NULL</h4>
+            
+            <p>Suponha uma tabela de cadastro de alubnos. Todo aluno deverá ter um nome cadastrado, de modo que esse campo é obrigatório (atributo não-nulo)</p>
+            <p>Nem todo aluno possui telefone, portando esse campo não é obrigatório (atrinbulo nulo)</p>
+        </div>
+        <div>
+            <h4>Exemplo de Valores NULL</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID_Aluno</th>
+                        <th>Nome_Aluno</th>
+                        <th>Sobrenome_Aluno</th>
+                        <th>Telefone</th>
+                        <th>Data_Nascimento</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+
+                <tbody>
+                    <tr>
+                        <td>111</td>
+                        <td>Márcio</td>
+                        <td>Zanori</td>
+                        <td>(11) 26533211</td>
+                        <td>01/03/1983</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>112</td>
+                        <td>Renato</td>
+                        <td>Marconi</td>
+                        <td>NULL</td>
+                        <td>14/11/1985</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Integridade de Chave</h3>
+            <p>Os valores inseridos na coluna de chave primário (PK) devem ser sempre únicos, não admitindo-se repetições nesses valores.</p>
+            <p>Desta forma, as tuplas (registros) serão sempre distintas.</p>
+            <p>Os valores de chave primária tambem não podem ser nulos.</p>
+        </div>
+        <div>
+            <h3>Integridade Definida pelo Usuário</h3>
+            <p>Diz respeito a regras de negócio especificas que são definidas pelo usuário do banco de dados.</p>
+            <p>Po exemplo, pode-se definir que uma coluna somente aceitará um conjunto restrido de valores.</p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Diagramação</h2>
+        </div>
+        <div>
+            <h3>Diagramação em linhas gerais</h3>
+            <ul>
+                <li>O Diagrama Entidade Relacionamento é a representação gráfica de um MER, que é modelo conceitual.</li>
+                <li>O uso de un driagrama facilita a modelagem e a comunicação entre os membros da equipe de desenvolvumento, permitindo que todos falem a mesma "lingua" durante o processo.</li>
+                <li>A notação original do DER foi proposta por Peter Chen</li>
+            </ul>
+            <p><i>Existem vários métodos para representar relacionamentos entre entidades</i></p>
+            <p>As notações gráficas mais utilizadas em modelagem de dados são:</p>
+            <ul>
+                <li>IDEF1X</li>
+                <li>Bachman</li>
+                <li>Min-Max</li>
+                <li>Pé de galinha (Crow's Foot)</li>
+                <li>Martin</li>
+                <li>UML</li>
+                <li>Peter Chen</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Softwares para Diagramação</h4>
+            <p>Ferramentas CASE</p>
+
+            <ul>
+                <li>Astah</li>
+                <li>Lucidchart</li>
+                <li>erwin Data Modeler</li>
+                <li>ERDPlus</li>
+                <li>GenMyModel</li>
+                <li>Star UML</li>
+                <li>Microsoft Visio</li>
+                <li>MySQL Workbench</li>
+                <li>Visual Paradigm</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Diagramação - Peter Chen</h4>
+            <p>A notação de Peter Chen para DER utilza retângulos para representar Entidades, e losangulos para os Relacionamentos.</p>
+            <p>Atributos são representados por elipses.</p>
+        </div>
+    </article>
+</body>
+</html>
