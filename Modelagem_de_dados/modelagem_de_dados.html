@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelagem - Banco de Dados</title>
+
+    <style>
+        body{
+            padding: 10px;
+        }
+        article{
+            border-bottom: solid 1px black;
+        }
+        table{
+            border: solid 1px black;
+        }
+        td{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+        th{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+
+        #td{
+            padding-left: 48%; 
+        }
+
+        .grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        table{
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1> Modelagem - Banco de Dados</h1>
+        </div>
+    </header>
+
+    <article>
+        <div>
+            <h2>
+                Entidade
+            </h2>
+        </div>
+        <div>
+            <h4>Linhas Gerais</h4>
+            <ul>
+                <li>Algo de importância para um usuário</li>
+                <li>Representa um tema, tópico ou conceito de negócio</li>
+                <li>Cada Objeto de ma entidade é chamado de <b>Instância de Entidade</b></li>
+                <li>Uma entidade pode ter existência física ou abstrata</li>
+            </ul>
+            <p><b>Ex:</b> Empregados, Livros, Vendas, Produtos.</p>
+        </div>
+        <div>
+            <h4>Nomenclatura Geral</h4>
+            <ul>
+                <li>NOmeamos as entidades usando substantivos que representam de forma clara e <br>
+                objetiva sua função.</li>
+                <li>Por exemplo, podemos ter em um sistema as entidades Produto, Cliente, Venda, Estoque <br>
+                Catálogo, entre outras.</li>
+                <li>Nomes de entidade é no singular / boas práticas.</li>
+                <li>Os nomes das entidades devem estar em retangulos.</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Regras de nomeação</h4>
+            <ul>
+                <li>Devem começar com uma letra;</li>
+                <li>Usar palavra no singular;</li>
+                <li>Não podem ter espaços ou caracteres especiais;</li>
+                <li>Alguns caracteres como "$","#" e "_" são permitidos em alguns bancos de dados; </li>
+                <li>Os nomes de colunas dever ser únicos dentro de uma tabela;</li>
+                <li>Os nomes de entidades / tabelas devem ser unicos dentro de esquema</li>
+            </ul>
+        </div>
+    </article>
+
+    <article>
+        <div>
+            <h2>
+                Atributos
+            </h2>
+        </div>
+        <div>
+            <h4>Atributo em linhas gerais</h4>
+            <ul>
+                <li>Os atributos descrevem características da entidade, como por exemplo: fabricante, modelo, cor, placa, etc.</li>
+                <li>Os atributos possuem um tipo de dados (domínio) nome e valor específico.</li>
+                <li>Os atributos podem ser representados por uma elipse contendo o seu nome, ligada à entidade que qualifica.</li>
+                <li>Opcionalmente, podemos representar um atribulo apenas pelo seu nome ligado à entidade, sem utilizar a elipse.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Tipos de Atributos</h3>
+            <ul>
+                <li>Os atributos podem ser de vários tipos, tais como:</li>
+                <li>Simples;</li>
+                <li>Composto;</li>
+                <li>Multivalorado;</li>
+                <li>Determinante;</li>
+                <li>Identicador</li>
+                <p>entre outros.</p>
+            </ul>   
+        </div>
+        <div>        
+            <ul>
+                <h4>Atributo Simples/Atômico</h4>
+                <li>Não possui caracteristicas especiais e são indivisiveis.</li>
+                <p><b>Ex: </b>Nome da empresa, CPOF, CNPJ</p>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributo Composto</h4>
+                <li>É formado por itens menores; Pode ser subdividido em outros atrinbutos.</li>
+                <p><b>Ex: </b>Endereçi da empresa.</p>
+                <p><i>Empresa: Endereço</i></p>
+                <ul>
+                    <li>Endereço --- Rua</li>
+                    <li>Endereço --- CEP</li>
+                    <li>Endereço --- Bairro</li>
+                </ul>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributo Multivalorado</h4>
+                <li>Pode conter mais de um valor par aum mesmo registro (informação).</li>
+                <p><b>Ex: </b>Telefone da empresa</p>
+                <p><i>Empresa --- *Telefone</i></p>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributo Determinante</h4>
+                <li>Define de forma única as instâncias de uma entidade. <br>
+                Não podem existir duas instâncias com o mesmo valor nesse atributo.</li>
+                <p><b>Ex: </b>CNPJ da empresa, Código de Produto</p>
+                <p><i>Empresa --- CNPJ</i></p>
+                <p><b>obs:</b> Quando temos um atributo determinante é de boas maneiras que ele tenha underline.</p>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h4>Atributos identificados ("Chaves")</h4>
+                <p>Uma <i>Chave</i> identifica ua instância especifica na classe de entidade.</p>
+                <p><b>Ex: </b>CPF, CódigoProduto, Matrícula, ID_Setor</p>
+
+                <h5>As Chaves podem ser únicas ou não-únicas:</h5>
+                <li>Únicas: O valor dos dados da chave é único na entidade;</li>
+                <li>Não-única: Usada para agrupar instâncias de classe em categorias;</li>
+                <li><i>As chaves podem ser compostas, consistindo em dois ou mais atributos combinados.</i></li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Entedidade x Relação</h2>
+        </div>
+        <div>
+            <h3>Entidade x Relação em linhas gerais</h3>
+            <ul>
+                <li>Uma Entidade é um conceito do mundo real, como por exemplo um cliente ou um produto</li>
+                <br>
+                <li>Uma Relação é um conjunto de registros que representam um modelo de uma entidade.</li>
+                <li>Cada registro representa uma instância de entidade, e o conjunto de todas as instâncias , com <br>
+                seus atributos, é chamado de Relação.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Relação</h3>
+            <ul>
+                <p>Tabela bidimensional com caracteristicas especificas, composta por linhas e colunas, criada a partir de uma entidade.</p>
+                <br>
+                <p>Caracteristicas de uma relação:</p>
+                <li>Linhas contém dados sobre instância de uma entidade (registro);</li>
+                <li>Colunas contém dados sobre atributos da entidade (campos);</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Relação - Caracteristicas - cont.</h3>
+            <ul>
+                <li>Cada célula da tabela armazena um único valor;</li>
+                <li>Todos os valores de uma coluna são do mesmo tipo (domínio);</li>
+                <li>Cada coluna possui um nome único;</li>
+                <li>Não há duas linhas idênticas;</li>
+                <li>As relações geralmente geram tabelas no banco;</li>
+            </ul>
+
+            <h3>Relação - Exemplo Completo</h3>
+            <h4>Entidade/Tabela: Produto</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cód</th> <th>Mercadoria</th> <th>Qtde_Estoque</th> <th>Fornecedor</th> <th>Validade</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <td id="td" colspan="5">...</td>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>189</td> <td>Azeitonas Pretas</td> <td>50</td> <td>05</td> <td>02/08/2017</td>
+                    </tr>
+                    <tr>
+                        <td>222</td> <td>Peixe Congelado</td> <td>26</td> <td>08</td> <td>22/09/2016</td>
+                    </tr>
+                    <tr>
+                        <td>236</td> <td>Enlatado</td> <td>48</td> <td>09</td> <td>07/12/2017</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>
+                Relacionamentos
+            </h2>
+        </div>
+        <div>
+            <h3>Relacionamentos em linhas gerais</h3>
+            <ul>
+                <li>As estidades podem ser conectadas entre si por meio de Relacionamentos. <br>
+                Trata-se de uma estrutura que indica a associação de elementos de uma  ou mais entidades. </li>
+                <h3>Porque precisamos de relacionamentos?</h3>
+                <li>Como os dados de diferentes entidades são armazenados em tabelas distintas, geralmente precisamos <br>
+                combinar duas ou mais tabelas para responder às perguntas específicas dos usuários.</li>
+                <li>Por exemplo, podemos querer saber quais produtos, e em qual quantidade, fora adquiridos por um cliente em particular. <br>
+                Precisamos então de dados das tabelas de clientes, de pedidos e produtos para obter essa informação.-</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Representando relacionamentos</h3>
+
+            <ul>
+                <li>
+                    Representamos um relacionamento em um DER por meio de um Losango que conecta uma ou mais entidades:
+                </li>
+            </ul>
+            <p><i>"Entidade A"</i> <b>---</b> <i>"<b>Losango:</b>"Relacionamento</i> <b>---</b> <i>"Entidade B"</i></p>
+        </div>
+        <div>
+            <h3>Grau de um Relacionamento</h3>
+            <p>O grau de um relacionamento define o número de entidades que participam do relacionamento. <br>
+            Assim, um relacionamento pode ser:</p>
+            <ul>
+                <li>Unário</li>
+                <li>Binário</li>
+                <li>Ternário</li>
+            </ul>
+            <p><b>obs: </b>Os relacionamentos mais comuns são os de grau dois (binários).</p>
+        </div>
+        <div>
+            <h3>Efetuando relacionamento entre múltiplas tabelas</h3>
+            <ul>
+                <li>Cada linha de dados em uma tabela deve ser identificada de forma única usando-se uma <br>
+                Chave Primária (identificador exclusivo).</li>
+                <li>Usamos uma Chave Estrageira para relacionar os dados entre múltiplas tabelas.</li>
+                <li>Usamos para isso o relacionamento entre chave primária de uma tabela com a chave estrangeira em outra tabela.</li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Chaves</h2>
+        </div>
+        <div>
+            <h3>Chaves em linhas gerais</h3>
+            <p>Uma chave consiste em uma ou mais colunas de uma relação cujos valores são usados para identificar de forma exclusiva uma linha ou conjunto de linha. <br>
+            Pode ser única (identifica uma única linha) ou não-única (identifica um conjunto de linhas).</p>
+            <br>
+            <p>Únicas (Unique): Candidata, Composta, Primária, Surrogada, Não-Única (Non-Unique): Estrangeira</p>
+        </div>
+        <div>
+            <h3>Chave Candidata</h3>
+            <ul>
+                <li>Atributo ou grupo de atributos com o potencial para se tornarem uma chave primária.</li>
+                <li>Uma chave candidata que não seja usada como chave primária será conhecida com <b>Chave Alternativa</b>.</li>
+                <p><b>Ex: </b>Campos Num_Matrícula e CPF em uma tabela com registro de alunos.</p>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Primária</h3>
+            <ul>
+                <li>Chave candidata escolhida para ser a <i>chave principal</i> na relação.</li>
+                <li>Identifica de fomra <i>exclusiva</i> os registros em uma tabela, não podendo ter repetição <br>
+                de valores nem tampouco valor nulo.</li>
+                <li>Primary Key/PK</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Estrangeira</h3>
+            <ul>
+                <li>Coluna de uma tabela que estabelece um <i>Relacionamento com a Chave Primária</i> (PK) de outra tabela.</li>
+                <li>É a partir da chave estrangeria (Foreign key/FK) que sabemos com qual registro em outra tabela um registro está relacionado.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Composta</h3>
+            <ul>
+                <li>Chave que é composta de dois ou mais atributos (colunas).</li>
+                <li>Geralmente empregada quando ão é possível utilizar uma única coluna de uma tabela para identificar de forma exclusiva seus registros.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Chave Sugorraga/Substituta</h3>
+            <ul>
+                <li>Valor numérico, único, adicionado a uma relação para servir como chave primária.</li>
+                <li>Não possui significado para os usuários e geralmente fica escondida nas aplicações.</li>
+                <li>As chaves substitutas são frequentemente usadas no lugar de uma chave primária composta.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Instruções para criação de chaves primárias e estrangeiras</h3>
+            <ul>
+                <li>Não é possivel haver valores duplicados em uma chave primária</li>
+                <li>no geral, não é possivel alterar o valor de uma chave primaria</li>
+                <li>Chaves estrangeiras são baseadas em valores de dados, classificadas como ponteiros lógicos</li>
+                <li>Um valor de uma chave estrangeira deve corresponder a um valor existente em uma chave primária associada (ou valor de chave única). <br>
+                Caso contrário, deve ser nulo (NULL)</li>
+                <li>Uma chave estrangeira deve referenciar uma chave primária ou uma coluna de chave única</li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Conceito de Dominio</h2>
+            <ul>
+                <li>Definir tipos de dados</li>
+                <li>Especificar valores váçidos em um campo</li>
+            </ul>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr> <th colspan="3">tbl_Clientes</th></tr>
+                    <tr> <th>Campo</th> <th>Tipo de Dado</th> <th>Tamanho</th></tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td> ID_Cliente</td> <td> Número</td> <td>4 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>Nome_Cliente</td> <td>Caractere</td> <td>40 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>CPF_Cliente</td> <td>Caractere</td> <td>11 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>Data Nasc</td> <td>Data e Hora</td> <td>8 caracteres</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Cardinalidade</h2>
+        </div>
+        <div>
+            <h3>Cardinalidade em linhas gerais</h3>
+            <p>A cardinalidade diz respeitos ao número de itens que se relacionam nas entidades.</p>
+            <p>A cardinalidade pode ser máxima ou mínima, significando respectivamente os números minimo e máximo de instâncias <br>
+            de cada entidade associadas no relacionamento.</p>
+            <br>
+            <p><b>Cardinalidade Máxima: </b>Trata-se do número máximo de instâncias de entidade que podem participar em um relacionamento. Pode ser 1 ou N(muitos).</p>
+            <br>
+            <p><b>Cardinalidade Mínima: </b>Número mínimo de instâncias de entidade que devem obrigatoriamente participar em um relacionamento. Zero é participação opcional e um é obrigatoria.</p>
+        </div>
+        <div>
+            <h3>Exemplo de Cardinalidade</h3>
+            <p>obs: Modelo de Peter Chen</p>
+            <p><b>Entidade: Cliente</b> (1,1)--- <b>Relação: Solicita </b> ---(1,N) <b>Entidade: Encomenda</b> </p>
+        </div>
+        <div>
+            <h3>Relacionamento Binário um-para-um</h3>
+            <p><b>1:1</b></p>
+            <p>Uma instância de entidade única em uma entidade está relacionada com uma instância de entidade única de outra entidade.</p>
+            <br>
+            <p><b><i>Ex:</i></b></p>
+            <p><b>Entidade: Professor</b> (1,1) ---- <b>Relacionamento: Usa </b> ---- (1,1) <b>Entidade: Armário</b></p>
+        </div>
+        <div>
+            <h3>Relacionamento Binário um-para-muitos <br>
+            1:N</h3>
+            <p>Uma instância de entidade única em uma classe de entidade está relacionada a muitas instâncias de entidade em outra classe de entidade.</p>
+            <br>
+            <p><b><i>Ex.:</i></b></p>
+
+            <p><b>Entidade: Funcionário</b> (1,N) ---- <b>Relacionamento: Trabalho</b> ---- (1,1) <b>Entidade: Departamento</b></p>
+        </div>
+        <div>
+            <h3>Relacionamento Binário muitos-para-muitos <br> N:M</h3>
+            <p>Muitas instâncias em uma entidade estão relacionadas a muitas instâncias de entidade em outra entidade.</p>
+            <p><b>Ex.: </b></p>
+            <p><b>Entidade: Cliente</b> (1,N) ---- <b>Relacionamento: Adquite</b> ---- (1,N) <b>Entidade: Pacote</b></p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Restrições de integridade</h2>
+        </div>
+        <div>
+            <h3>Integridade de Dados</h3>
+            <p>Manutenção e garantia de consistência e presição dos dados, sendo um aspecto critico no desing, implementação e uso de sistemas de armazenamento de dados. 
+                <br> A integridade é atingida por meio da aplicação de <b><i>Restrições de integridade</i></b>
+            </p>
+            
+            <h4>Restrições de integridade</h4>
+            <ul>
+                <li>Integridade Referencial;</li>
+                <li>Integridade de Dominio;</li>
+                <li>Integridade de Vazio;</li>
+                <li>Integridade da Chave/</li>
+                <li>Integridade Definida pelo Usuário;</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Integridade de Domínio</h3>
+            <p>Valores inseridos em uma coluna devem sempre obeceder à definição dos valores que são permitidos para essa coluna - os valores do domínio.</p>
+            <p><b>Ex.: </b>em uma coluna que aramazena preços de mercadorias, os valores admitidos são do domínio numérico - ou seja, apenas números.</p>
+
+            <h4>Integridade de Dominio - Fatores</h4>
+            <ul>
+                <li>Tipo de Dado do campo;</li>
+                <li>Representação interna do tipo de dado;</li>
+                <li>Presença ou não do dado;</li>
+                <li>Inervalos de valores do domínio;</li>
+                <li>Conjuntos de valores discretos;</li>
+            </ul>
+
+            <h4>Integridade de Dominio - Exemplo:</h4>
+            <p>Atributo <b>Preço do Produto: </b>Valor monetário</p>
+            <ul>
+                <li>Valor Permitido:
+                    <ul>
+                        <li>25,33</li>
+                    </ul>
+                </li>
+                <li>Valores não permitidos:
+                    <ul>
+                        <li>25 reais e 33 centavos</li>
+                        <li>-32,33</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Integridade Referencial</h3>
+            <p>Uma restrição de integridade Referencial assegura que valores de uma coluna em uma tabela são válidos <br>
+            baseados nos valores em uma outra tabela relacionada.</p>
+            <p><b>Ex.: </b>Se um produto de ID 523 foi cadastrado em uma tabela de Vendas, então um produto com ID 523 deve existir na tabela de Produtos relacionada.</p>
+            <p><b>Ex2.: </b>Atributo <b><i>Nome_Produto: </i></b>Caracteres</p>
+            
+            <ul>
+                <li>Valores permitidos (produtos cadastrados):
+                    <ul>
+                        <li>Água</li>
+                        <li>Refrigerante</li>
+                        <li>Suco</li>
+                    </ul>
+                </li>
+                <li> Valores não permitidos para venda (não existem na tabela de produtos):
+                    <ul>
+                        <li>Cerveja</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h4>Integridade Referencial - Atualização e Exclusão</h4>
+            <p>Se um registro for excluido em uma tabela, então os registros relacionados em outras tabelas que o referenciam talvez precisem ser excluidos.</p>
+            <p>Caso contrário ocorrerá erro. O mesmo se dá com atualização de registros.+</p>
+        </div>
+        <div>
+            <h3>Integridade de Vazio</h3>
+
+            <p>Este tipo de integridade informa se a coluna é obrigatória ou opcional - ou seja, se é possível não inserir um valor na coluna;</p>
+            <p>Uma coluna de chave promária, por exemplo, sempre deve ter dados inseridos, e nunca pode estar vazia, para nenhum registro.</p>
+        </div>
+        <div>
+            <h4>Valores Nulos (NULL)</h4>
+            <p>Um valor NULL significa que não existem dados. É diferente de zero,m espaço, string vazia ou tabulação.</p>
+            <p>Os nulos podem ser problemáticos, pois indicam:</p>
+            <ul>
+                <li>O valor da coluna não é apropriado;</li>
+                <li>O valor não foi inserido;</li>
+                <li>O valor é desconhecido;</li>
+            </ul>
+
+            <h4>Exemplo de Valores NULL</h4>
+            
+            <p>Suponha uma tabela de cadastro de alubnos. Todo aluno deverá ter um nome cadastrado, de modo que esse campo é obrigatório (atributo não-nulo)</p>
+            <p>Nem todo aluno possui telefone, portando esse campo não é obrigatório (atrinbulo nulo)</p>
+        </div>
+        <div>
+            <h4>Exemplo de Valores NULL</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID_Aluno</th>
+                        <th>Nome_Aluno</th>
+                        <th>Sobrenome_Aluno</th>
+                        <th>Telefone</th>
+                        <th>Data_Nascimento</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+
+                <tbody>
+                    <tr>
+                        <td>111</td>
+                        <td>Márcio</td>
+                        <td>Zanori</td>
+                        <td>(11) 26533211</td>
+                        <td>01/03/1983</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>112</td>
+                        <td>Renato</td>
+                        <td>Marconi</td>
+                        <td>NULL</td>
+                        <td>14/11/1985</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Integridade de Chave</h3>
+            <p>Os valores inseridos na coluna de chave primário (PK) devem ser sempre únicos, não admitindo-se repetições nesses valores.</p>
+            <p>Desta forma, as tuplas (registros) serão sempre distintas.</p>
+            <p>Os valores de chave primária tambem não podem ser nulos.</p>
+        </div>
+        <div>
+            <h3>Integridade Definida pelo Usuário</h3>
+            <p>Diz respeito a regras de negócio especificas que são definidas pelo usuário do banco de dados.</p>
+            <p>Po exemplo, pode-se definir que uma coluna somente aceitará um conjunto restrido de valores.</p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Diagramação</h2>
+        </div>
+        <div>
+            <h3>Diagramação em linhas gerais</h3>
+            <ul>
+                <li>O Diagrama Entidade Relacionamento é a representação gráfica de um MER, que é modelo conceitual.</li>
+                <li>O uso de un driagrama facilita a modelagem e a comunicação entre os membros da equipe de desenvolvumento, permitindo que todos falem a mesma "lingua" durante o processo.</li>
+                <li>A notação original do DER foi proposta por Peter Chen</li>
+            </ul>
+            <p><i>Existem vários métodos para representar relacionamentos entre entidades</i></p>
+            <p>As notações gráficas mais utilizadas em modelagem de dados são:</p>
+            <ul>
+                <li>IDEF1X</li>
+                <li>Bachman</li>
+                <li>Min-Max</li>
+                <li>Pé de galinha (Crow's Foot)</li>
+                <li>Martin</li>
+                <li>UML</li>
+                <li>Peter Chen</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Softwares para Diagramação</h4>
+            <p>Ferramentas CASE</p>
+
+            <ul>
+                <li>Astah</li>
+                <li>Lucidchart</li>
+                <li>erwin Data Modeler</li>
+                <li>ERDPlus</li>
+                <li>GenMyModel</li>
+                <li>Star UML</li>
+                <li>Microsoft Visio</li>
+                <li>MySQL Workbench</li>
+                <li>Visual Paradigm</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Diagramação - Peter Chen</h4>
+            <p>A notação de Peter Chen para DER utilza retângulos para representar Entidades, e losangulos para os Relacionamentos.</p>
+            <p>Atributos são representados por elipses.</p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Dicionário de Dados</h2>
+        </div>
+        <div>
+            <h3>Dicionário de Dados em linhas gerais</h3>
+            <ul>
+                <li>Um dicionário de dados é um documento usado para armazenar informações sobre o conteudo, formato e estrutura de uma banco de dados, assim como os relacionamentos entre os seus elementos.</li>
+                <li>É importante manter um dicionário de daods para limitar erros ao criar a estrutura física do banco de dados no computador.</li>
+                <li>Também chamado de <b>"Repositório de Metadados"</b></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Exemplo de Dicionário de Dados</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tabela</th> <th>Relacionamento</th> <th>Nome do Relacionamento</th> <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">tbl_Livro</td> <td>tbl_Autor</td> <td>Escreve</td> <td rowspan="2">Tabela para cadastro dos livros da coleção</td>
+                    </tr>
+                    <tr>
+                        <td>tbl_Editora</td> <td>Publica</td>
+                    </tr>
+                    <tr>
+                        <td>tbl_Autor</td> <td>tbl_Livro</td> <td>Escreve</td> <td>Tabela para cadastro dos autores dos livros</td>
+                    </tr>
+                    <tr>
+                        <td>tbl_Editora</td> <td>Publica</td> <td>Cadastro de editoras</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <br>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tabela</th>
+                        <th>Nome da Coluna</th>
+                        <th>Tipo de Dados</th>
+                        <th>Comprimento</th>
+                        <th>Restrições</th>
+                        <th>Valor Padrão</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>tbl_Livro</td>
+                        <td>ID_Livro</td>
+                        <td>Inteiro</td>
+                        <td>4 bytes</td>
+                        <td>PK> NOT NULL</td>
+                        <td>N/D</td>
+                        <td>Número de identificação do livro, gerado automaticamente</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Nome_Livro</td>
+                        <td>Caracteres</td>
+                        <td>40 bytes</td>
+                        <td>NOT NULL</td>
+                        <td>N/D</td>
+                        <td>N/D</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>ID_Autor</td>
+                        <td>Inteiro</td>
+                        <td>4 bytes</td>
+                        <td>FK</td>
+                        <td>N/D</td>
+                        <td>Num de identificação do autor</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>ID_Editora</td>
+                        <td>Inteiro</td>
+                        <td>4 bytes</td>
+                        <td>FK</td>
+                        <td>N/D</td>
+                        <td>Num de identificação da editora</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Data_Pub</td>
+                        <td>Data</td>
+                        <td>8 bytes</td>
+                        <td></td>
+                        <td>N/D</td>
+                        <td>Data da publicação da obra</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Total de Dados em cada registro: 60 bytes</p>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tabela</th>
+                        <th>Nome da Coluna</th>
+                        <th>Tipo de Dados</th>
+                        <th>Comprimento</th>
+                        <th>Restrições</th>
+                        <th>Valor Padrão</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>tbl_Autor</td>
+                        <td>ID_Autor</td>
+                        <td>Inteiro</td>
+                        <td>4 bytes</td>
+                        <td>PK, NOT NULL</td>
+                        <td>N/D</td>
+                        <td>Número de identificação do autor, gerado automaticamente</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Nome_Autor</td>
+                        <td>Caracteres</td>
+                        <td>40 bytes</td>
+                        <td>NOT NULL</td>
+                        <td>N/D</td>
+                        <td>Nome do autor</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Sobrenome_Autor</td>
+                        <td>Caracteres</td>
+                        <td>40 bytes</td>
+                        <td>NOT NULL</td>
+                        <td>N/D</td>
+                        <td>Sobrenome do autor</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Total de Dados em cada Registro: 84 bytes</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td>Tabela</td>
+                        <td>Nome da Coluna</td>
+                        <td>TIpo de Dados</td>
+                        <td>Comprimento</td>
+                        <td>Restrições</td>
+                        <td>Valor Padrão</td>
+                        <td>Descrição</td>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>tbl_Editora</td>
+                        <td>ID_Editora</td>
+                        <td>Inteiro</td>
+                        <td>4 bytes</td>
+                        <td>PK, NOT NULL</td>
+                        <td>N/D</td>
+                        <td>Número de identificação da editora, gerado automaticamente</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Nome_Editora</td>
+                        <td>Caracteres</td>
+                        <td>40 bytes</td>
+                        <td>NOT NULL</td>
+                        <td>N/D</td>
+                        <td>Nome da Editora</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>TOtal de Dados em cada Registro: 44 bits</p>
+
+            <h4>Relacionamentos:</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Relacionamento</th>
+                        <th>Tabela 1 - FK</th>
+                        <th>Tabela 2 - PK</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>"Escreve"</td>
+                        <td>tbl_Livro</td>
+                        <td>tbl_Autor</td>
+                        <td>Relacionamento que descreve qual autor escreve cada livro</td>
+                    </tr>
+                    <tr>
+                        <td>"Publica"</td>
+                        <td>tbl_Livro</td>
+                        <td>tbl_Editora</td>
+                        <td>Relacionamento que mostra qual editora publica cada livro</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Dependência Funcional</h2>
+        </div>
+        <div>
+            <h3>Dependência Funcional em linhas gerais</h3>
+            <p>Seja E uma entidade, e X e Y dois atributos quaiquer de E. Dizemos que Y é funcionamente dependente de X se e somente se cada valor de X <br>
+            tiver associado a ele exatamente um valor de Y.</p>
+            <p><i>Simbolicamente:</i></p>
+            <p><b>X ---> Y </b></p>
+            <p>Que lemos como "X determina funcionalmente Y".</p>
+
+            <p><b>Ex.:</b> O prazo de entrega de um pedido depende do número do pedido considerado:</p>
+            <p><i>Numero_Pedido ---> Prazo_Entrega_Pedido </i></p>
+            <p>O atributo que determina o valor é chamado de <b>Determinante</b>.</p>
+            <p>O outro atributo é chamado de <b>Dependente</b>.</p>
+            <p>Uma chave primária em uma relação determina funcionalmente todos os outros atributos não-chave na linha.</p>
+        </div>
+        <div>
+            <h3>Dependência Funcional Total</h3>
+            <p>Em uma relação com uma PK composta, um atributo não-chave que dependa dessa PK como um todo, e não somente de parte dela, é dito como possuindo Dependência Funcional Total.</p>
+            <p><b>Ex.:</b></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td colspan="2">Item-Pedido</td>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>PK</td>
+                        <td>Num_Pedido</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                        <td>Cod_Produto</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Quant_Produto</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Aqui, Quant_Produto depende tanto de Num_Pedido quanto de Cod_Produto, ao mesmo tempo.</p>
+        </div>
+        <div>
+            <h3>Dependência Funcional Parcial</h3>
+
+            <p>Uma dependência funcional é parcial quando os atributos não-chave não dependem funcionalmente de toda a PK quando esta for composta.</p>
+            <p>Ou seja, existe uma dependência funcional, mas somente de uma parte da chave primária.</p>
+            <p><b>Ex.:</b></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Matrículas</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>PK</td>
+                        <td>ID_Aluno</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                        <td>Cod_Disciplina</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Nome_Disciplina</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Data_Início</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Campo Nome_Disciplina é dependenete de Cod_Disciplina, mas não de ID_Aluno.</p>
+        </div>
+        <div>
+            <h3>Dependência Funcional Transitiva</h3>
+            <p>Ocorre quando um campo não depende diretamente da chave primária da tabela (nem mesmo parcialmente), <br>
+            mas depende de um outra campo não-chave.</p>
+
+            <p><b>Ex.:</b></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Pedido</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>PK</td>
+                        <td>Num_Pedido</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Prazo_Entrega</td>
+                    </tr>
+                    <tr>
+                        <td>FK</td>
+                        <td>Cód_Vendedor</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Nome_Vendedor</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>No exemplo, o atributo Nome_Vendedor depende funcionalmente do Cód_Vendedor, que não é chave primária na tabela.</p>
+            <p>Já o campo Prazo_Entrega depende de PK Num_Pedido.</p>
+        </div>
+        <div>
+            <h3>Dependência Multivalorada</h3>
+
+            <p>Ocorre quando, para cada valor de um atributo A, existe um conjunto de valores para outros atributos B e C ques estão associados a ele, mas são independentes entre si.</p>
+            <p>Representamos a dependência multivalorada assim:</p>
+            <p><b>A ->> B</b></p>
+            <p>Onde B é a coluna que depende de A.</p>
+
+            <p><b>Ex.:</b></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modelo</th>
+                        <th>Ano</th>
+                        <th>Cor</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Gol</td>
+                        <td>2016</td>
+                        <td>Prata</td>
+                    </tr>
+                    <tr>
+                        <td>Uno</td>
+                        <td>2016</td>
+                        <td>Prata</td>
+                    </tr>
+                    <tr>
+                        <td>Uno</td>
+                        <td>2016</td>
+                        <td>Preto</td>
+                    </tr>
+                    <tr>
+                        <td>Fox</td>
+                        <td>2016</td>
+                        <td>Vermelho</td>
+                    </tr>
+                    <tr>
+                        <td>Fox</td>
+                        <td>2014</td>
+                        <td>Branco</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Ano e Cor são independentes entre si e dependem do modelo do carro. Essas duas colunas são dependentes multivaloradas do modelo.</p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Normalização</h2>
+        </div>
+        <div>
+            <h3>Introdução a Normalização</h3>
+            <h4>Anomalias e Atualização</h4>
+            <ul>
+                <li>Anomalias são problemas que ocorrem em bancos de dados mal planejados e não-normalizados, geralmente ocorrre por excesso de dados armazenados em uma mesma tabela.</li>
+                <li>São causadas pelas dependência parciais e transitivas.</li>
+                <li>As anomalias de atualização são classificadas em anomalias de inserção, de exclusão e de modificação.</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Anomalia de Inclusão</h4>
+            <p>Anomalia de Inclusão: Não deve ser possivel adicionar um dado a não ser que outro dado esteja disponivel.</p>
+            <p>Por exemplo, não deve ser permitido cadastrar um novo livro sem que um autor já esteja cadastrado.</p>
+        </div>
+        <div>
+            <h4>Anomalia de Exclusão</h4>
+            <p>Anomalia de Exclusão: ao excluirmos um registro, dados referentes em outra tabela são excluidos. Por exemplo, <br>
+            se excluirmos um autor, os livros desse autor devem ser excluídos também.</p>
+        </div>
+        <div>
+            <h4>Anomalia de Modificação</h4>
+            <p>Anomalia de Modificação: ao alterar um dado em uma tabela, dados em outras tabelas precisam ser alterados.</p>
+            <p>Por exemplo, se o código de um autor for modificado, esse código deve ser modificado na tabela de autores e na de livros também, <br>
+            para manter o relacionamento entre livros e seus autores corretos.</p>
+        </div>
+        <div>
+            <h4>Eliminar anomalias</h4>
+            <p>Projetar os esquemas de relações (tabelas) no banco de dados de modo que nenhuma anomalia de inserrção, exclusão ou modificação esteja presente nas relações.</p>
+            <p>Para isso, usamos o processo de <b>Normalização</b>.</p>
+        </div>
+        <div>
+            <h3>Normalização em linhas gerais</h3>
+            <p>Normalização consiste em um processo de análise de uma relação para assegurar que seja bem formada.</p>
+            <p>Decompor relações com anomalias para produzir relações menores e bem-estruturadas.</p>
+            <p>Ou seja, em uma relação normalizada podemos inserir, excluir ou modificar registros sem criar anomalias.</p>
+
+            <ul>
+                <li>O processo de normalização, proposto por Codd em 1972, aplica a um esquema de relação uma série de testes para certificar que ele satisfaça uma <b>Forma Normal</b>(FN)</li>
+                <li>Codd propôs originalmente 3 formas normais: 1*, 2* e 3* FNs.</li>
+                <li>Posteriormente, a 3FN foi revisada e uma definição mais robusta foi proposta por Boyce e COdd, denominada Forma Normal de Boyce-COdd (FNBC)</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Objetivos da Normalização</h3>
+            <p>Analisar esquemas de relação (tabelas) com base em suas dependências funcionais e chaves primárias para:</p>
+            <p><b>1. </b>Minimizar redundâncias.</p>
+            <p><b>2. </b>Minimizar anomalias de inserção, exclusão e modificação</p>
+
+            <p>As relações são decompostas em esquemas de relação menores que atendem aos testes de forma normal.</p>
+            <p>O ideal é que o projeto do banco de dados relacional alcance a FNBC ou a 3FN para cada tabela.</p>
+            <p>Não é adequado normalizar apenas até a 1FN ou à 2FN, pois na verdade essas formas normais são usadas para se chegar à 3FN ou FNBC.</p>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Primeira Forma Normalo - 1FN</h2>
+        </div>
+        <div>
+            <h3>1FN</h3>
+
+            <p>Definida historicamente para reprovar atributos multivalorados, compostos e suas combinações.</p>
+            <p>O dominio de um atributo deve incluir apenas valores atômicos (indivisiveis), e o valor de qualquer atributo em uma tupla deve ser único valor do dominio desse atributo.</p>
+        </div>
+        <div>
+            <h3>Primeira Forma Normal</h3>
+            <p>Uma tabela está na 1 forma normal quando:</p>
+            <ul>
+                <li>Somente possui valores atômicos</li>
+                <li>Não há grupos de atributos repetidos (há apenas um dado por coluna nas linhas)</li>
+                <li>Existe uma chave primária </li>
+                <li>Relação não possui atributos multivalorados ou relações aninhadas</li>
+                <li>Uma tabela está na 1 forma normal se somente houverem valores atômicos no dominio de seus atributos</li>
+                <li>Um valor atÔmico é um valor indivisivel</li>
+                <li>Como exemplo, um campo de Endereço possui subdomínios Rua, Número e CEP. Esses itens devem ser separados no processo e normalização</li>
+                <li>Cada informação deve ser colocada em um campo diferente</li>
+            </ul>
+            <h3>Dados Atômicos</h3>
+            <ul>
+                <li>Elementos de dados que representam o nivel mais baixo de detalhamento.</li>
+                <li>Então, campo não-atômicos são aqueles que podem ser subdivididos em mais de um campo, pois ele escondem <br>
+                detalhes, como por exemplo o nome de uma pessoa, que contém o primeiro nome e o sobrenome.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Normalizando a tabela até 1FN</h3>
+        </div>
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>tbl_Cliente</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Cliente</td>
+                    </tr>
+                    <tr>
+                        <td>Nome_Cliente</td>
+                    </tr>
+                    <tr>
+                        <td>*Tel_Cliente</td>
+                    </tr>
+                    <tr>
+                        <td>Endereço_Cliente</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">tbl_Cliente</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Cliente</td>
+                        <td>Nome_Cliente</td>
+                        <td>*Tel_Cliente</td>
+                        <td>Endereço_Cliente</td>
+                    </tr>
+                    <tr>
+                        <td>2532</td>
+                        <td>José</td>
+                        <td>99653-2145 <br> 2865-3212</td>
+                        <td>Rua das Giestas, <br>234, ap.45 - Vila Bela</td>
+                    </tr>
+                    <tr>
+                        <td>2536</td>
+                        <td>Marcos</td>
+                        <td>2643-5321</td>
+                        <td>Av.Carlos de Almeida, <br>459 - Vila das Rosas</td>
+                    </tr>
+                    <tr>
+                        <td>2453</td>
+                        <td>Ana</td>
+                        <td>4213-6532 <br>97563-5632</td>
+                        <td>Rua Min.Alberto Jorge,<br>1492 - Vila Primavera</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">tbl_Cliente</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Cliente</td>
+                        <td>Nome_Cliente</td>
+                        <td>Rua</td>
+                        <td>Bairro</td>
+                    </tr>
+                    <tr>
+                        <td>2532</td>
+                        <td>José</td>
+                        <td>Rua das Giestas, 234</td>
+                        <td>Vila Bela</td>
+                    </tr>
+                    <tr>
+                        <td>2536</td>
+                        <td>Marcos</td>
+                        <td>Av. Carlos de Almeida, 459</td>
+                        <td>Vila das Rosas</td>
+                    </tr>
+                    <tr>
+                        <td>2453</td>
+                        <td>Ana</td>
+                        <td>Rua Min. Alberto Jorge, 1492</td>
+                        <td>Vila Primavera</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">tbl_Telefone</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Cliente</td>
+                        <td>Tel_Cliente</td>
+                    </tr>
+                    <tr>
+                        <td>2532</td>
+                        <td>99653-2145</td>
+                    </tr>
+                    <tr>
+                        <td>2532</td>
+                        <td>2865-3212</td>
+                    </tr>
+                    <tr>
+                        <td>2536</td>
+                        <td>2643-5321</td>
+                    </tr>
+                    <tr>
+                        <td>2453</td>
+                        <td>4213-6532</td>
+                    </tr>
+                    <tr>
+                        <td>2453</td>
+                        <td>97563-5632</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Segunda Forma Normal</h2>
+        </div>
+        <div>
+            <h3>Segunda Forma Normal em linhas gerais</h3>
+            <ul>
+                <li>Baseada no conceito de Dependencia Funcional Total</li>
+                <li>Um esquema de relação R está na 2FN se cada atributo não-chave de R for total e funcionalmente dependente da PK e R</li>
+                <li>Par testar a 2FN, testamos as dependências funcionais cujos atributos fazem parte da chave primária</li>
+                <li>Caso a PK tenha um único atributo, esse teste não precisa ser aplicado</li>
+            </ul>
+
+            <h4>Resumo.:</h4>
+            <p>Uma tabela está na 2 FN se:</p>
+            <ul>
+                <li>Está na 1FN</li>
+                <li>Todos os atributos não-chave são funcionalmente dependentes de todas as partes da chave primária.</li>
+                <li>Não existem dependências parciais.</li>
+                <li>Caso contrário, deve-se gerar uma nova tabela com os dados</li>
+            </ul>
+
+            <p>Deve-se criar uma nova relação para cada chave PK ou combinação de atributos que forem <b>determinantes em uma dependência funcional.</b></p>
+            <p>Esse atributo será a PK na nova tabela.</p>
+            <p>Mova os atributos não-chave dependentes desta PK para a nova tabela.</p>
+        </div>
+        <h3>Ex.:</h3>
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>tbl_Peça</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_peça</td>
+                    </tr>
+                    <tr>
+                        <td>Cod_Fornec</td>
+                    </tr>
+                    <tr>
+                        <td>Local_Fornecedor</td>
+                    </tr>
+                    <tr>
+                        <td>Qtde_Estoque</td>
+                    </tr>
+                    <tr>
+                        <td>Tel_Fornecedor</td>
+                    </tr>
+                    <tr>
+                        <td>Qtde_Caixas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="6">tbl_Peças</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>PK Cod_Peça</td>
+                        <td>PK Cod_Fornec</td>
+                        <td>Local_Fornecedor</td>
+                        <td>Qtde_Estoque</td>
+                        <td>Tel_Fornecedor</td>
+                        <td>Qtde_Caixas</td>
+                    </tr>
+                    <tr>
+                        <td>0009</td>
+                        <td>121</td>
+                        <td>São Paulo</td>
+                        <td>512</td>
+                        <td>2365-6532</td>
+                        <td>52</td>
+                    </tr>
+                    <tr>
+                        <td>0023</td>
+                        <td>122</td>
+                        <td>Manaus</td>
+                        <td>263</td>
+                        <td>4465-8632</td>
+                        <td>27</td>
+                    </tr>
+                    <tr>
+                        <td>0065</td>
+                        <td>121</td>
+                        <td>São Paulo</td>
+                        <td>196</td>
+                        <td>2365-6532</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>0071</td>
+                        <td>123</td>
+                        <td>Porto Alegre</td>
+                        <td>89</td>
+                        <td>2956-8653</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>0073</td>
+                        <td>122</td>
+                        <td>Manaus</td>
+                        <td>296</td>
+                        <td>4465-8632</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">PK</td> <td colspan="4"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">tbl_Peça</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Peça</td>
+                        <td>Cod_Fornec</td>
+                        <td>Qtde_Estoque</td>
+                        <td>Qtde_Caixas</td>
+                    </tr>
+                    <tr>
+                        <td>0009</td>
+                        <td>121</td>
+                        <td>512</td>
+                        <td>52</td>
+                    </tr>
+                    <tr>
+                        <td>0023</td>
+                        <td>122</td>
+                        <td>263</td>
+                        <td>27</td>
+                    </tr>
+                    <tr>
+                        <td>0065</td>
+                        <td>121</td>
+                        <td>196</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>0071</td>
+                        <td>123</td>
+                        <td>89</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>0073</td>
+                        <td>122</td>
+                        <td>296</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                        <td>FK <br>PK</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">tbl_Fornecedor</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Fornec</td>
+                        <td>Local_Fornecedor</td>
+                        <td>Tel_Fornecedor</td>
+                    </tr>
+                    <tr>
+                        <td>121</td>
+                        <td>São Paulo</td>
+                        <td>2365-6532</td>
+                    </tr>
+                    <tr>
+                        <td>122</td>
+                        <td>Manaus</td>
+                        <td>4465-8632</td>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>Porto Alegre</td>
+                        <td>2956-8653</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Terceira Forma Normal</h2>
+        </div>
+        <div>
+            <h3>Terceira Forma Normal em linhas gerais</h3>
+            <ul>
+                <li>Baseada no conceito de Dependencia Transitiva</li>
+                <li>A relaçãp não deve ter um atributo não-chave determinado funcionalmente por outro atributo não-chave (ou conjunto)</li>
+                <li>Não deve haver dependencia transitiva de um atributo não-chave sobre a PK</li>
+                <li>Deve-se decompor e montar uma nova relação que inclua os atributos não-chave que determinam funcionalmente outros atributos não-chave</li>
+            </ul>
+
+            <p>Uma tabela está na #FN se:</p>
+            
+            <ul>
+                <li>Estiver na 2FN</li>
+                <li>Não existirem <b>dependencias transitivas.</b></li>
+                <li>Uma tabela está na Terceira Forma Normal se ela estiver na segunda forma normal e se nhuma coluna não-chavedepender de outra coluna não-chave</li>
+            </ul>
+
+            <p>Uma dependencia transitiva em uma tabela é uma dependencia funcional entre dois ou mais atributos não-chave</p>
+
+            <p>Para cada atributo (ou grupo) não-chave que for um determinante na relação, crie uma nova tabela.</p>
+            <p>Esse atributo será a PK na nova relação.</p>
+            <p>Mova então todos os atributos que são dependentes funcionalmente do atributo chave para a nova tabela.</p>
+            <p>O atributo (PK na nova relação) fica também na tabela original, e servirá como uma chave estrangeira para associas as duas relações.</p>
+        </div>
+        <h3>Ex.:</h3>
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>tbl_Venda</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Nota_Fiscal</td>
+                    </tr>
+                    <tr>
+                        <td>Cod_Vendedor</td>
+                    </tr>
+                    <tr>
+                        <td>Nome_Vendedor</td>
+                    </tr>
+                    <tr>
+                        <td>Cod_Produto</td>
+                    </tr>
+                    <tr>
+                        <td>Qtde_Vendida</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">tbl_Venda</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Nota_Fiscal</td>
+                        <td>Cod_Vendedor</td>
+                        <td>Nome_Vendedor</td>
+                        <td>Cod_Produto</td>
+                        <td>Qtde_Vendida</td>
+                    </tr>
+                    <tr>
+                        <td>15326</td>
+                        <td>002</td>
+                        <td>Leila</td>
+                        <td>132</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>15327</td>
+                        <td>006</td>
+                        <td>Ana</td>
+                        <td>153</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>15328</td>
+                        <td>002</td>
+                        <td>Leila</td>
+                        <td>143</td>
+                        <td>11</td>
+                    </tr>
+                    <tr>
+                        <td>15329</td>
+                        <td>009</td>
+                        <td>Fábio</td>
+                        <td>132</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>15330</td>
+                        <td>007</td>
+                        <td>Renato</td>
+                        <td>153</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                        <td colspan="4"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>tbl_Venda</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Nota_Fiscal</td>
+                        <td>Cod_Vendedor</td>
+                        <td>Cod_Produto</td>
+                        <td>Qtde_Vendida</td>
+                    </tr>
+                    <tr>
+                        <td>15326</td>
+                        <td>002</td>
+                        <td>132</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>15327</td>
+                        <td>006</td>
+                        <td>153</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>15328</td>
+                        <td>002</td>
+                        <td>143</td>
+                        <td>11</td>
+                    </tr>
+                    <tr>
+                        <td>15329</td>
+                        <td>009</td>
+                        <td>132</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>15330</td>
+                        <td>007</td>
+                        <td>153</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                        <td>FK</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>tbl_Vendedor</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr>
+                        <td>Cod_Vendedor</td>
+                        <td>Nome_Vendedor</td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Leila</td>
+                    </tr>
+                    <tr>
+                        <td>006</td>
+                        <td>Ana</td>
+                    </tr>
+                    <tr>
+                        <td>007</td>
+                        <td>Renato</td>
+                    </tr>
+                    <tr>
+                        <td>009</td>
+                        <td>Fábio</td>
+                    </tr>
+                    <tr>
+                        <td>PK</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Forma Normal de Boyce-Codd</h2>
+        </div>
+        <div>
+            <h3>Forma Normal de Boyce-Codd em linhas gerais</h3>
+
+            <p>A definição original da 3FN de Codd não lidava adequadamente com uma relação que:</p>
+            <ul>
+                <li>Tivesse duas ou mais chaves candidatas.</li>
+                <li>Essas chaves candidatas fossem compostas</li>
+                <li>Elas tivessem superposição (atributos em comum)</li>
+            </ul>
+
+            <p>Caso a combinação das condições acima não ocorra em uma tabela, basta aplicar a 3FN.</p>
+            <p>Uma relação está em FNBC se e somente se os únicos determinante são chaves candidatas.</p>
+
+            <ul>
+                <li>Cada relação na FNBC também está na 3FN, mas uma relação na 3FN não está necessariamente na FNBC (a maioria está)</li>
+                <li>Quando uma tabela possui mais de uma chave candidata, podem ocorrer anomalias.</li>
+                <li>Na FNBC as chaves candidatas não possuem dependências parciais por outros atributos</li>
+                <li>Uma relação R está na FNBC sempre que unma dependência funcional não-trivial <b>X --> A</b> se mantiver R, assim X é uma superchave de R</li>
+            </ul>
+        </div>
+        <div>
+            <h3>FNBC - Pontos a considerar</h3>
+
+            <p><b>Determinante:</b> "lado esquerdo" de uma DF, como o X em <i>X --> Y</i> (Y é "deoendente"); X determina funcionalmente Y</p>
+            <p><b>Dependência Funcional Trivial:</b> dependência que não pode deixar de ser satisfeita. Uma DF é trivial se o lado direito da expressão é um subconjunto da lado esquerdo.</p>
+            <p><b>A --> B</b> é uma DF trivial se B for um subconjunto de A.</p>
+            <p><b><i>Exemplo:</i></b></p>
+            <br>
+            <p><b></b>{ID_Func, Nome_Func} --> ID_Func</b> é uma DF trivial porque ID_Func é um subconjunto de {ID_Func, Nome_Func}</p>
+        </div>
+        <div class="grid">
+            <div>
+                <p>Definindo: Seja a relação FORN que contém os atributos F#, F_Nome, P#, Qtde:</p>
+                <p><b><i>FORN {F#, F_Nome, P#, Qtde}</i></b></p>
+                <p>Temos como chaves candidatas as combinações <b>{F#, P#}</b> e {F_Nome, P#}, <br>
+                como mostra a tabela ao lado.</p>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="4">FORN</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>F#</td>
+                            <td>F_Nome</td>
+                            <td>P#</td>
+                            <td>Qtde</td>
+                        </tr>
+                        <tr>
+                            <td>F1</td>
+                            <td>Acme</td>
+                            <td>P1</td>
+                            <td>600</td>
+                        </tr>
+                        <tr>
+                            <td>F1</td>
+                            <td>Acme</td>
+                            <td>P2</td>
+                            <td>300</td>
+                        </tr>
+                        <tr>
+                            <td>F1</td>
+                            <td>Acme</td>
+                            <td>P3</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td>F1</td>
+                            <td>Acme</td>
+                            <td>P4</td>
+                            <td>280</td>
+                        </tr>
+                        <tr>
+                            <td>F2</td>
+                            <td>Umbrella</td>
+                            <td>P1</td>
+                            <td>350</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <h3>FNBC - Normalizando</h3>
+            <p>Para normalizar uma tabela até a FNBC devemos decompor a tabela com os passos a seguir:</p>
+            <ul>
+                <li>Encontrar uma dependência funcional não-trivial X --> Y que viole a condição de FNBC.X não deve ser uma superchave.</li>
+                <li>Dividir a tabela em duas: Uma com os atributos XY, ou seja, todos os atributos da dependência</li>
+                <li>Outra com os atributos X juntamente com os atributos restantes da tabela original</li>
+            </ul>
+        </div>
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Forn</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>F#</td>
+                        <td>F_Nome</td>
+                    </tr>
+                    <tr>
+                        <td>F1</td>
+                        <td>Acme</td>
+                    </tr>
+                    <tr>
+                        <td>F2</td>
+                        <td>Umbrella</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">Forn_Prod</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>F#</td>
+                        <td>P#</td>
+                        <td>Qtde</td>
+                    </tr>
+                    <tr>
+                        <td>F1</td>
+                        <td>P1</td>
+                        <td>600</td>
+                    </tr>
+                    <tr>
+                        <td>F1</td>
+                        <td>P2</td>
+                        <td>300</td>
+                    </tr>
+                    <tr>
+                        <td>F1</td>
+                        <td>P3</td>
+                        <td>250</td>
+                    </tr>
+                    <tr>
+                        <td>F1</td>
+                        <td>P4</td>
+                        <td>280</td>
+                    </tr>
+                    <tr>
+                        <td>F2</td>
+                        <td>P1</td>
+                        <td>350</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <p>Pode haver mais de uma decomposição válida na FNBC</p>
+        </div>
+    </article>
+</body>
+</html>
