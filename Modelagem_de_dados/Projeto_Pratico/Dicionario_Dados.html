@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicionário de Dados</title>
+
+    <style>
+        body{
+            padding: 10px;
+        }
+        
+        table{
+            border: solid 1px black;
+        }
+        td{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+        th{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+        article{
+            margin-bottom: 75px;
+        }
+
+        table{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dicionário de Dados: Entidades</h1>
+    </header>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Entidades
+                    </th>
+                    <th>
+                        Relacionamento
+                    </th>
+                    <th>
+                        Nome do Relacionamento
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td rowspan="3">
+                        Departamento
+                    </td>
+                    <td>Professor</td>
+                    <td>Pertence</td>
+                    <td rowspan="3">Tabela para cadastro dos Departamentos da faculdade</td>
+                </tr>
+                <tr>
+                    <td>Curso</td>
+                    <td>Controla</td>
+                </tr>
+                <tr>
+                    <td>Disciplina</td>
+                    <td>Gerencia</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Professor</td>
+                    <td>Departamento</td>
+                    <td>Pertence</td>
+                    <td rowspan="2">Tabela para cadastro dos professor da faculdade</td>
+                </tr>
+                <tr>
+                    <td>Prof_Disciplina</td>
+                    <td>Leciona</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Turma</td>
+                    <td>Curso</td>
+                    <td>Gera</td>
+                    <td rowspan="2">Tabela para registrar turmas em andamento ou encerradas</td>
+                </tr>
+                <tr>
+                    <td>Aluno</td>
+                    <td>Pertence</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Entidades
+                    </th>
+                    <th>
+                        Relacionamento
+                    </th>
+                    <th>
+                        Nome do Relacionamento
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td rowspan="4">Curso</td>
+                    <td>Deparmento</td>
+                    <td>Controla</td>
+                    <td rowspan="4"> Tabela para cadastro dos cursos oferecidos pela faculdade</td>
+                </tr>
+                <tr>
+                    <td>Turma</td>
+                    <td>Gera</td>
+                </tr>
+                <tr>
+                    <td>Aluno</td>
+                    <td>Está matriculado</td>
+                </tr>
+                <tr>
+                    <td>Curso_Disciplina</td>
+                    <td>Possui</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">Aluno</td>
+                    <td>Curso</td>
+                    <td>Está matriculado</td>
+                    <td rowspan="4">Tabela para cadastro de informaçãoes sobre alunos da faculdade</td>
+                </tr>
+                <tr>
+                    <td>Turma</td>
+                    <td>Pertence</td>
+                </tr>
+                <tr>
+                    <td>Disciplina</td>
+                    <td>Cursa</td>
+                </tr>
+                <tr>
+                    <td>Histórico</td>
+                    <td>Pertence a</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Entidades
+                    </th>
+                    <th>
+                        Relacionamento
+                    </th>
+                    <th>
+                        Nome do Relacionamento
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody<tr>
+                    <td rowspan="6">Disciplina</td>
+                    <td>Aluno</td>
+                    <td>Cursa</td>
+                    <td rowspan="6">Tabela para cadastro das disciplinas que compõem os cursos oferecidos pela faculdade</td>
+                </tr>
+                <tr>
+                    <td>Departamento</td>
+                    <td>Gerencia</td>
+                </tr>
+                <tr>
+                    <td>Prof_Disciplina</td>
+                    <td>É lecionada</td>
+                </tr>
+                <tr>
+                    <td>Curso_Disciplina</td>
+                    <td>Pertence</td>
+                </tr>
+                <tr>
+                    <td>Disciplina</td>
+                    <td>Depende</td>
+                </tr>
+                <tr>
+                    <td>Disc_Hist</td>
+                    <td>Compõe</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Histórico</td>
+                    <td>Aluno</td>
+                    <td>Pertence a</td>
+                    <td rowspan="2">Tabela para geração de histórico de notas do launo</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Entidades
+                    </th>
+                    <th>
+                        Relacionamento
+                    </th>
+                    <th>
+                        Nome do Relacionamento
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td rowspan="2">Disc_Hist</td>
+                    <td>Disciplina</td>
+                    <td>Compõe</td>
+                    <td rowspan="2">Tabela associativa entre Disciplina e Histórico</td>
+                </tr>
+                <tr>
+                    <td>Histórico</td>
+                    <td>É composto</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Curso_Disciplina</td>
+                    <td>Curso</td>
+                    <td>Possui</td>
+                    <td>Tabela associativa entre Curso e Disciplina</td>
+                </tr>
+                <tr>
+                    <td>Disciplina</td>
+                    <td>Pertence</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Prof_Disciplina</td>
+                    <td>Professor</td>
+                    <td>Leciona</td>
+                    <td rowspan="2">Tabela associativa entre Professor e Disciplina</td>
+                </tr>
+                <tr>
+                    <td>Disciplina</td>
+                    <td>É lecionada</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <h1>Dicionário de Dados: Atributos</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Departamento</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipo de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>Cod_Departamento</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, NOT NULL</td>
+                    <td>Código de identificação do deparmento</td>
+                </tr>
+                <tr>
+                    <td>Nome_Departamento</td>
+                    <td>Caractere</td>
+                    <td>40 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Nome do departamento</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+
+    <article>
+        <table>
+            <thead>
+            <tr>
+                <th colspan="5">Entidade Professor</th>
+            </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+            <tr>
+                <td>Atributo</td>
+                <td>Tipo de Dados</td>
+                <td>Comprim.</td>
+                <td>Restrições</td>
+                <td>Descrição</td>
+            </tr>
+            <tr>
+                <td>Cod_Professor</td>
+                <td>Inteiro</td>
+                <td>4 bytes</td>
+                <td>PK, NOT NULL</td>
+                <td>Código de identificação do professor</td>
+            </tr>
+            <tr>
+                <td>Nome_Professor</td>
+                <td>Caractere</td>
+                <td>40 bytes</td>
+                <td>NOT NULL</td>
+                <td>Nome do Professor</td>
+            </tr>
+            <tr>
+                <td>Sobrenome_Professor</td>
+                <td>Caractere</td>
+                <td>40 bytes</td>
+                <td>NOT NULL</td>
+                <td>Sobrenome do Professor</td>
+            </tr>
+            <tr>
+                <td>Cod_Departamento</td>
+                <td>Inteiro</td>
+                <td>4 bytes</td>
+                <td>FK, NOT NULL</td>
+                <td>Código de identificação do departamento</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>Booleano</td>
+                <td>1 bit</td>
+                <td>NOT NULL</td>
+                <td>Status do professor (lecionando / não lecionando)</td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
+
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Curso</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipo de Dados</td>
+                    <td>Coprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>Cod_Curso</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, NOT NULL</td>
+                    <td>Código de identificação do curso</td>
+                </tr>
+                <tr>
+                    <td>Nome_Curso</td>
+                    <td>Caractere</td>]
+                    <td>40 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Nome do Curso</td>
+                </tr>
+                <tr>
+                    <td>Cod_Departamento</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>FK, NOT NULL</td>
+                    <td>Código de identificação do departamento</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Turma</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipo de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>Cod_Tuma</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, NOT NULL</td>
+                    <td>Código de identificação da turma</td>
+                </tr>
+                <tr>
+                    <td>Cod_Curso</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>FK, NOT NULL</td>
+                    <td>Código de identificação do curso</td>
+                </tr>
+                <tr>
+                    <td>Período</td>
+                    <td>Caractere</td>
+                    <td>10 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Período da turma (manhã, tarde ou noite)</td>
+                </tr>
+                <tr>
+                    <td>Num_Alunos</td>
+                    <td>Inteiro</td>
+                    <td>2 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Número de alunos matriculados na turma</td>
+                </tr>
+                <tr>
+                    <td>Data_Inicio</td>
+                    <td>Data</td>
+                    <td>4 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Data de inicío da turma</td>
+                </tr>
+                <tr>
+                    <td>Data_Fim</td>
+                    <td>Data</td>
+                    <td>4 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Data de fim da turma</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Aluno</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipo de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>RA</td>
+                    <td>Caractere</td>
+                    <td>8 bytes</td>
+                    <td>PK, NOT NULL</td>
+                    <td>Código de identificação do aluno</td>
+                </tr>
+                <tr>
+                    <td>Nome_Aluno</td>
+                    <td>Caractere</td>
+                    <td>25 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>NOME DO ALUNO</td>
+                </tr>
+                <tr>
+                    <td>Sobrenome_Aluno</td>
+                    <td>Caractere</td>
+                    <td>40 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Sobrenome do aluno</td>
+                </tr>
+                <tr>
+                    <td>CPF</td>
+                    <td>Caractere</td>
+                    <td>40 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>CPF do aluno</td>
+                </tr>
+                <tr>
+                    <td>Telefone</td>
+                    <td>Caractere</td>
+                    <td>40 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Telefones* do aluno</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>Caractere</td>
+                    <td>1 byte</td>
+                    <td>NOT NULL</td>
+                    <td>Status da matrículo da matricula</td>
+                </tr>
+                <tr>
+                    <td>Contato</td>
+                    <td>Caractere</td>
+                    <td>40 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Formas de contato do aluno</td>
+                </tr>
+                <tr>
+                    <td>Cod_Turma</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>FK, NOT NULL</td>
+                    <td>Código de identificação do curso</td>
+                </tr>
+                <tr>
+                    <td>Cod_Curso</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>FK, NOT NULL</td>
+                    <td>Código de identificação do curso</td>
+                </tr>
+                <tr>
+                    <td>Sexo</td>
+                    <td>Caractere</td>
+                    <td>1 byte</td>
+                    <td>NOT NULL</td>
+                    <td>Sexo do aluno</td>
+                </tr>
+                <tr>
+                    <td>Filiação</td>
+                    <td>Caractere</td>
+                    <td>80 caractere</td>
+                    <td>NOT NULL</td>
+                    <td>Nome da mãe do aluno</td>
+                </tr>
+                <tr>
+                    <td >Endereço_Rua</td>
+                    <td rowspan="3">Caractere</td>
+                    <td>80 B</td>
+                    <td rowspan="3">NOT NULL</td>
+                    <td rowspan="3">Endereço do aluno dividido em Rua, Número e CEP</td>
+                </tr>
+                <tr>
+                    <td>Endereço_Número</td>
+                    <td>10 B</td>
+                </tr>
+                <tr>
+                    <td>Endereço_CEP</td>
+                    <td>10 B</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Disciplina</th>
+                </tr>
+            </thead>
+            <tfoot>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipo de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrições</td>
+                </tr>
+                <tr>
+                    <td>Cod_Disciplina</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, NOT NULL</td>
+                    <td>Código de identificação da disciplina</td>
+                </tr>
+                <tr>
+                    <td>Nome_Disciplina</td>
+                    <td>Caractere</td>
+                    <td>30 B</td>
+                    <td>NOT NULL</td>
+                    <td>Nome da disciplina</td>
+                </tr>
+                <tr>
+                    <td>Descrição</td>
+                    <td>Caractere</td>
+                    <td>200 B</td>
+                    <td>NULL</td>
+                    <td>Descrição da disciplina</td>
+                </tr>
+                <tr>
+                    <td>Cod_Departamento</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>FK, NOT NULL</td>
+                    <td>Código do departamento responsável pela disciplina</td>
+                </tr>
+                <tr>
+                    <td>Carga_Horaria</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Carga horaria da disciplina</td>
+                </tr>
+                <tr>
+                    <td>Num_Alunos</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Numero alunos da disciplina</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+        <thead>
+            <tr>
+                <th colspan="5">Entidade Histórico</th>
+            </tr>
+        </thead>
+        <tfoot></tfoot>
+        <tbody>
+            <tr>
+                <td>Atributo</td>
+                <td>Tipo de Dados</td>
+                <td>Comprim.</td>
+                <td>Restrições</td>
+                <td>Descrição</td>
+            </tr>
+            <tr>
+                <td>Cod_Histórico</td>
+                <td>Inteiro</td>
+                <td>4 bytes</td>
+                <td>PK, NOT NULL</td>
+                <td>Código de identificação do histórico</td>
+            </tr>
+            <tr>
+                <td>RA</td>
+                <td>Caractere</td>
+                <td>8 bytes</td>
+                <td>FK, NOT NULL</td>
+                <td>Código de identificação do aluno</td>
+            </tr>
+            <tr>
+                <td>Periodo_Realização</td>
+                <td>Inteiro</td>
+                <td>4 B</td>
+                <td>NOT NULL</td>
+                <td>Duração de realização da disciplina da disciplina (em meses)</td>
+            </tr>
+        </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Disc_Hist</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipos de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>Cod_Histórico</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, FK, NOT NULL</td>
+                    <td>Código de identificação do histórico</td>
+                </tr>
+                <tr>
+                    <td>Cod_Disciplina</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, FK, NOT NULL</td>
+                    <td>Código de identificação da disciplina</td>
+                </tr>
+                <tr>
+                    <td>Nota</td>
+                    <td>Decimal</td>
+                    <td>8 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>NOta da disciplina</td>
+                </tr>
+                <tr>
+                    <td>Frequência</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>NOT NULL</td>
+                    <td>Número de faltas na disciplina</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Curso_Disciplina</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>TIpos de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>Cod_Curso</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, FK, NOT NULL</td>
+                    <td>Código de identificação do curso</td>
+                </tr>
+                <tr>
+                    <td>Cod_Disciplina</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, FK, NOT NULL</td>
+                    <td>Código de identificação da disciplina</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">Entidade Prof_Disciplina</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>Atributo</td>
+                    <td>Tipo de Dados</td>
+                    <td>Comprim.</td>
+                    <td>Restrições</td>
+                    <td>Descrição</td>
+                </tr>
+                <tr>
+                    <td>Cod_Professor</td>
+                    <td>Inteiro</td>
+                    <td>4 byts</td>
+                    <td>PK, FK, NOT NULL</td>
+                    <td>Código de identificação do Professor</td>
+                </tr>
+                <tr>
+                    <td>Cod_Disciplina</td>
+                    <td>Inteiro</td>
+                    <td>4 bytes</td>
+                    <td>PK, FK, NOT NULL</td>
+                    <td>Código de identificação da disciplina</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+</body>
+</html>

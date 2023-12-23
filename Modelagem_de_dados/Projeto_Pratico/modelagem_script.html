@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelagem de Dados - Projeto Prático_Script</title>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Projeto Prático</h1>
+        </div>
+    </header>
+    <article>
+        <div>
+            <h2>Apresentação</h2>
+            <p>Banco de Dados para Gerenciamento de uma Faculdade.</p>
+            <p>Objetivos do Banco de Dados:</p>
+
+            <ul>
+                <li>Realizar controle centralizado de alunos, professores, cursos, disciplinas, histórico escolar e turmas.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Fases do Projeto:</h3>
+            <p><b>Fases:</b></p>
+
+            <ul>
+                <li>Levantamento dos Requisitos</li>
+                <li>Identificação de Entidades e Relacionamentos</li>
+                <li>Modelo E-R</li>
+                <li>Diagrama E-R</li>
+                <li>Dicionario de Dados</li>
+                <li>Normalização</li>
+                <li>implementação</li>
+                <li>Testes Básicos</li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <div>
+            <h2>Regras do Negócio</h2>
+            <ul>
+                <li>Um aluno só pode estar matriculado em um curso por vez</li>
+                <li>Alunos possuem um código de identificação (RA)</li>
+                <li>Cursos são compostos por disciplinas</li>
+                <li>Cada disciplina terá no máximo 30 alunos por turma</li>
+                <li>As disciplinas podem ser obrigatórias ou optativas, dependendo do curso</li>
+                <li>As disciplinas pertencem a departamentos específicos</li>
+                <li>Cada disciplina possui um código de identificação</li>
+                <li>Alunos podem trancar matricula, não estando então matriculados em nenhuma disciplina no semestre</li>
+                <li>Em cada semestre, cada aluno pode se matricular em no máximo 9 disciplinas</li>
+                <li>O aluno só pode ser reprovado no máximo 3 vezes na mesma disciplina</li>
+                <li>A faculdade terá no máximo 3000 alunos matriculados simultaneamente, em 10 cursos distintos</li>
+                <li>Entram 300 alunos novos por ano</li>
+                <li>Existem 90 disciplinas no total disponiveis</li>
+                <li>Um Histórico Escolar traz todas as disciplinas cursadas por um aluno, incluindo nota final, frequência e periodo do curso realizado</li>
+                <li>Professores podem ser cadastrados mesmo sem lecionar disciplinas</li>
+                <li>Existem 40 professores trabalhando na escola</li>
+                <li>Cada professor irá lecionar no máximo 4 disciplinas diferentes</li>
+                <li>Cada profesor é vinculado a um departamento</li>
+                <li>Professores são identificados por um código de professor</li>
+            </ul>
+        </div>
+    </article>
+    <article>
+        <h2>Identificando Entidades, Atributos e Relacionamentos</h2>
+        <h3>Entidades:</h3>
+        <ul>
+            <li>Aluno</li>
+            <li>Professor</li>
+            <li>Disciplina</li>
+            <li>Curso</li>
+            <li>Departamento</li>
+        </ul>
+
+        <h3>Relacionamentos</h3>
+        <ul>
+            <li>Aluno está matriculado em curso</li>
+            <li>Aluno cursa disciplina</li>
+            <li>Aluno realizou disciplina</li>
+            <li>Disciplina pertence a curso</li>
+            <li>Professor ministra disciplina</li>
+            <li>Professor pertence a departamento</li>
+            <li>Departamento é responsável por disciplina</li>
+            <li>Departamento controla curso</li>
+            <li>Disciplina depende de Disciplina</li>
+        </ul>
+
+        <h3>Atributos - Aluno</h3>
+        <ul>
+            <li>Número de Matricula</li>
+            <li>Nome</li>
+            <li>Sobrenome</li>
+            <li>Endereço
+                <ul>
+                    <li>Rua</li>
+                    <li>Número</li>
+                    <li>Bairo</li>
+                    <li>CEP</li>
+                    <li>Cidade</li>
+                    <li>Estado</li>
+                </ul>
+            </li>
+            <li>Código do curso</li>
+        </ul>
+
+        <h3>Atributos - Professor</h3>
+        <ul>
+            <li>Código do Professor</li>
+            <li>Nome</li>
+            <li>Sobrenome</li>
+            <li>Código do Departamento</li>
+        </ul>
+
+        <h3>Atributos - Disciplina</h3>
+        <ul>
+            <li>Código da Disciplina</li>
+            <li>Nome da Disciplina</li>
+            <li>Descrição Curricular</li>
+            <li>Código do Departamento</li>
+            <li>Número de Alunos</li>
+        </ul>
+
+        <h3>Atributos - Departamento</h3>
+        <ul>
+            <li>Código do Departamento</li>
+            <li>Nome do Departamento</li>
+        </ul>
+    </article>
+</body>
+</html>
