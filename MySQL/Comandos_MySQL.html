@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comandos para SQL basicos</title>
+    <style>
+        body{
+            padding: 10px;
+        }
+        
+        table{
+            border: solid 1px black;
+        }
+        td{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+        th{
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+        article{
+            margin-bottom: 75px;
+        }
+
+        table{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Comandos básico para SQL</h1>
+    </header>
+    <article>
+        <h2>Para criar um novo banco de dados:</h2>
+        <p><b>CREAT DATABASE [IF NOT EXISTS] nome_BD;</b></p>
+        <br>
+        <p>O elemento IF NOT EXISTS é opcional. Ele previne o erro de tentar criar um banco de dados que já existe no servidor.</p>
+        <p>Não é possível ter dois bancos de dados com o mesmo nome.</p>
+        <br>
+        <p><b><i>Exemplo:</i></b></p>
+        <br>
+        <p><b>CREATE DATABASE db_Biblioteca;</b></p>
+    </article>
+    <article>
+        <h2>Verificar Banco de Dados</h2>
+        <p>Podemos verificar os bancos de dados existentes com o comando <b>SHOW DATABASES;</b></p>
+        <br>
+        <p><b>SHOW DATABASES;</b></p>
+    </article>
+    <article>
+        <h2>Comando USE</h2>
+        <p>O comando USE instrui o SGBDR a utilizar o banco de dados especificado para rodar os comandos.</p>
+        <br>
+        <p>Sintaxe:</p>
+        <p><b>Use nome_banco_de_dados;</b></p>
+        <br>
+        <p>Para visualizar o banco de dados selecionado no momento use o comando:</p>
+        <p><b>SELECT DATABASE();</b></p>
+    </article>
+    <article>
+        <h2>Excluir Banco de Dados</h2>
+        <p>Podemos excluir um banco de dados existente com o comando <b>DROP DATABASE;</b></p>
+        <br>
+        <p><b>DROP DATABASE [IF EXISTS] nome_BD;</b></p>
+    </article>
+    <article>
+        <h2>Ver tabelas dentro do Banco de Dados</h2>
+        <p>Para vermos quantas tabelas existem dentro do Banco de Dados usamos o comando:</p>
+        <br>
+        <p><b>SHOW TABLES;</b></p>
+    </article>
+    <article>
+        <h2>SQL Constraints (Restrições)</h2>
+        <ul>
+            <li>Restrições são regras aplicadas nas colunas de uma tabela.</li>
+            <li>São usadas para limitar os tipos de dados que são inseridos.</li>
+            <li>Podem ser especificadas no momento de criação da tabela (CREATE) ou após a tabela ter sido criada (ALTER)</li>
+        </ul>
+        <p><b>Principais Constrains:</b></p>
+        <ul>
+            <li>NOT NULL</li>
+            <li>UNIQUE</li>
+            <li>PRIMARY KEY</li>
+            <li>FOREIGN KEY</li>
+            <li>DEFAULT</li>
+        </ul>
+    </article>
+    <article>
+        <h2>NOT NULL</h2>
+        <ul>
+            <li>A constraint NOT NULL impõe a uma coluna a NÃO aceitar valores NULL.</li>
+            <li>A constraint NOT NULL obriga um campo a sempre possuir um valor.</li>
+            <li>Deste modo, não é possível inserir um registro (ou atualizar) sem entrar com um valor neste campo.</li>
+        </ul>
+    </article>
+    <article>
+        <h2>UNIQUE</h2>
+        <ul>
+            <li>A restrição UNIQUE identifica de forma única cada registro em uma tabela de um banco de dados.</li>
+            <li>As constraints UNIQUE e PRIMARY KEY garantem a unicidade em uma coluna ou conjunto de colunas.</li>
+            <li>Uma constraint PRIMARY KEY automaticamente possui uma restrição UNIQUE definida.</li>
+            <li>Você pode ter várias constraints UNIQUE em uma tabela, mas apenas uma Cgave Primária por tabela</li>
+        </ul>
+    </article>
+    <article>
+        <h2>PRIMARY KEY</h2>
+        <ul>
+            <li>A PRIMARY KEY identifica de forma única cada registro em uma tabela de banco de dados.</li>
+            <li>Chaves Primárias devem conter valores únicos.</li>
+            <li>Uma coluna de chave primária não pode conter valores NULL.</li>
+            <li>Cada tabela deve ter uma chave primária e apenas uma chave primária.</li>
+        </ul>
+    </article>
+    <article>
+        <h2>FOREIGN KEY</h2>
+        <p>Uma FOREIGN KEY (Chave Estrangeira) em uma tabela é um campo que aponta para uma chave primária em outr tabela.</p>
+        <br>
+        <p><b>CONTRAINT fk_ID_Autor FOREIGN KEY (ID_Autor) REFERENCES tbl_autores(ID_Autor)</b></p>
+        <br>
+        <p>Neste exemplo a chave primária está na tabela tbl_autores e uma chave estrangeira de nome ID_Autor foi criada na tabela atual, usando o nome fk_ID_Autor</p>
+    </article>
+    <article>
+        <h2>DEFAULT</h2>
+        <ul>
+            <li>A restrição DEFAULT é usada para inserir um valor padrão em uma coluna.</li>
+            <li>O valor padrão será adicionado a todos os novos registros caso nenhum outro valor seja especificado.</li>
+        </ul>
+    </article>
+    <article>
+        <h2>Criar Tabelas</h2>
+        <p>Para criar tabelas, usamos o comando CREAT TABLE:</p>
+        <br>
+        <p><b>CREATE TABLE [IF NOT EXISTS] nome_tabela ( coluna tipo_dados constraints )</b></p>
+        <br>
+        <p><b>Exemplo:</b></p>
+        <p>USE db_Biblioteca;</p>
+        <p>CREATE TABLE IF NOT EXISTS tbl_Livro <br>
+        ( ID_Livro smallint AUTO_INCREMENT PRIMARY KEY,<br>
+        Nome_Livro Varchar(50) NOT NULL,<br>
+        ISBN Varchar(30) NOT NULL,<br>
+        ID_Autor smallint NOT NULL,<br>
+        Data_Pub DATE NOT NULL,<br>
+        Preco_Livro decimal NOT NULL );</p>
+        <br>
+        <p>CREATE TABLE tbl_autores (<br>
+        ID_Autor SMALLINT PRIMARY KEY,<br>
+        Nome_Autor VARCHAR(50),<br>
+        Sobrenome_Autor VARCHAR(60) <br>
+        );</p>
+        <br>
+        <p>CREATE TABLE tbl_editoras ( <br>
+        ID_Editora SMALLINT PRIMARY KEY AUTO_INCREMENT, <br>
+        Nome_Editora VARCHAR(50) NOT NULL <br>
+        );</p>
+    </article>
+    <article>
+        <h2>AUTO_INCREMENT</h2>
+        <ul>
+            <li>O auto incremento permite que um número único seja gerado quando um novo registro é inserido em uma tabela.</li>
+            <li>Em MYSQL trata-se da palavra chave AUTO_INCREMENT, cujo valor inicial padrão é 1, e se incrementa em 1.</li>
+            <li>Para que o valor da coluna se inicie em 100, por exemplo, use:</li>
+        </ul>
+        <br>
+        <p><b>AUTO_INCREMENT = 100</b></p>
+        <br>
+        <ul>
+            <li>Ao inserir valores na tabela, não é necessário especificar o valor para a coluna de auto-incremento.</li>
+            <li>Só é permitido usar uma coluna de auto incremento por tabela, geralmente do tipo inteiro.</li>
+            <li>Necessita também da constraint NOT NULL (configurado automaticamente)</li>
+        </ul>
+        <br>
+        <h3>Incremento - Exemplo</h3>
+        <p>CREATE TABLE tbl_teste_incremento ( <br>
+        Codigo SMALLINT PRIMARY KEY AUTO_INCREMENT, <br>
+        Nome VARCHAR(20) NOT NULL <br>
+        ) AUTO_INCREMENT = 15;</p>
+        <br>
+        <p>INSERT INTO tbl_teste_incremento (Nome) VALUES ("Ana");</p>
+        <p>INSERT INTO tbl_teste_incremento (Nome) VALUES ("Maria");</p>
+        <br>
+        <p><b><i>SELECT * FROM tbl_teste_incremento;</i></b></p>
+        <br>
+        <h3>Verificar o valor atual do auto incremento</h3>
+        <p>Podemos verificar o valor de incremento mais atual armazenado em uma tabela no banco de dados com o comando a seguir:</p>
+        <p><b>SELECT MAX (nome_coluna)</b></p>
+        <p><b>FROM tabela</b></p>
+        <br>
+        <p><b><i>Exemplo:</i></b></p>
+        <p><b>SELECT MAX(ID_Livro)</b></p>
+        <p><b>FROM tbl_livro;</b></p>
+        <br>
+        <h3>Alterar o próximo valor no campo de Auto-incremento</h3>
+        <p>Para alterar o valor de incremento do próximo registro a ser armazenado em uma tabela, use o comando a seguir:</p>
+        <br>
+        <p><b>ALTER TABLE tabela AUTO_INCREMENT = valor;</b></p>
+        <br>
+        <p>Ex.:- Usar o valor 90 a partir do próximo registro:</p>
+        <p><b>ALTER TABLE tbl_teste_incremento</b></p>
+        <p><b>AUTO_INCREMENT = 90;</b></p>
+    </article>
+    <article>
+        <h2>Tipos de Dados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+                <tr>
+                    <td>INT</td>
+                    <td>Inteiros entre -2,147,483,648 e 2,147,483,647</td>
+                </tr>
+                <tr>
+                    <td>TINYINT</td>
+                    <td>Números inteiros entre -128 a 127</td>
+                </tr>
+                <tr>
+                    <td>SMALLINT</td>
+                    <td>Números inteiros de -32768 a 32767</td>
+                </tr>
+                <tr>
+                    <td>MEDIUMINT</td>
+                    <td>Números inteiros de -8388608 a 8388607</td>
+                </tr>
+                <tr>
+                    <td>BIGINT</td>
+                    <td>Números entre -9,223,372,036,854,775,808 e 9,223,373,036,854,775,807</td>
+                </tr>
+                <tr>
+                    <td>DECIMAL(M,D)</td>
+                    <td>Ponto decimal com M digitos no total (precisão) e D casas decimais (escala); o padrão é 10,0; M vai atpe 65 e D até 30</td>
+                </tr>
+                <tr>
+                    <td>FLOAT(M,D)</td>
+                    <td>Ponto flutuante com precisão M e escala D; o padrão é 10,2; D vai atéa 24</td>
+                </tr>
+                <tr>
+                    <td>CHAR(M)</td>
+                    <td>String que ocupa tamanho fixo entre 0 e 255 caracteres</td>
+                </tr>
+                <tr>
+                    <td>BOOL/BOOLEAN</td>
+                    <td>Valores binários 0/1;Na verdade, é um alias para o tipo TINYINT(1)</td>
+                </tr>
+                <tr>
+                    <td>VARCHAR(M)</td>
+                    <td>String de tamanho variável, até 65535 caracteres</td>
+                </tr>
+                <tr>
+                    <td>BLOB/MEDIUMBLOB/ <br>TINYBLOB</td>
+                    <td>Campo com tamanho máximo de 65535 caracteres binários; <br>
+                    'Binary Large Objects', são usados para armazenar grandes quantidades de dados, como imagens.</td>
+                </tr>
+                <tr>
+                    <td>MEDIUMTEXT</td>
+                    <td>Permite armazenar até 16.77.215 caracteres</td>
+                </tr>
+                <tr>
+                    <td>LONGTEXT</td>
+                    <td>Permite armazenar até 4.294.967.295 caracteres</td>
+                </tr>
+                <tr>
+                    <td>DATE</td>
+                    <td>Uma data de 01/01/1000 a 31/12/9999, no formato YYYY-MM-DD</td>
+                </tr>
+                <tr>
+                    <td>DATETIME</td>
+                    <td>Uma combinação de data e hora de 01/01/1000 00:00:00 a <br>
+                    31/12/9999 23:59:59, no formato YYYY-MM-DD HH:MM:SS</td>
+                </tr>
+                <tr>
+                    <td>TIME</td>
+                    <td>Hora apenas, no formato HH:MM:SS</td>
+                </tr>
+                <tr>
+                    <td>YEAR(M)</td>
+                    <td>Ano nos formatos de 2 ou 4 digitos; se forem 2 (YEAR(2)), ano vai de 1970 a 2069; <br>
+                    para 4 (YEAR(4)), vai de 1901 a 2155. O padrão é 4</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <h2>Alterar Tabelas</h2>
+        <ul>
+            <li>É possível alterar a estrutura de uma tabela após ter sido criada, acrescentando ou excluindo atributos (campos)</li>
+            <li>Usamos para isso o comando <b>ALTER TABLE</b></li>
+        </ul>
+
+        <h3>ALTER TABLE - DROP</h3>
+        <p><b>ALTER TABLE tabela</b></p>
+        <p><b>DROP COLUMN coluna;</b></p>
+        <br>
+        <p><i>Exemplo.:</i></p>
+        <p><b>ALTER TABLE tbl_livro</b></p>
+        <p>DROP COLUMN ID_autor;</p>
+        <br>
+        <p>Pode-se excluir uma chave primária:</p>
+        <p><b>ALTER TABLE tabela</b></p>
+        <p><b>DROP PRIMARY KEY;</b></p>
+
+        <h3>ALTER TABLE - ADD</h3>
+        <p>Adionar colunas:</p>
+        <p><b>ALTER TABLE tabela</b></p>
+        <p><b>ADD coluna tipo_dados constraints;</b></p>
+
+        <p>-----------------------------------------------------------------------------------</p>
+        <p><b>ALTER TABLE tbl_Livro</b></p>
+        <p><b>ADD ID_Autor SMALLINT NOT NULL;</b></p>
+        <br>
+        <p><b>ALTER TABLE tbl_Livro</b></p>
+        <p><b>ADD CONSTRAINT fk_ID_Autor</b></p>
+        <p><b>FOREIGN KEY (ID_Autor)</b></p>
+        <p><b>REFERENCES tbl_autores (ID_autor);</b></p>
+
+        <p>-----------------------------------------------------------------------------------</p>
+        <p><b>ALTER TABLE tbl_Livro</b></p>
+        <p><b>ADD ID_editora SMALLINT NOT NULL;</b></p>
+        <br>
+        <p><b>ALTER TABLE tbl_Livro</b></p>
+        <p><b>ADD CONSTRAINT fk_id_editora</b></p>
+        <p><b>FOREIGN KEY (ID_editora)</b></p>
+        <p><b>REFERENCES tbl_editoras (ID_editora);</b></p>
+
+        <h3>ALTER TABLE - ALTER COLUMN</h3>
+        <p>Podemos alterar colunar, por exemplo mudando o tipo de dados:</p>
+        <p><i>Ex.:</i></p>
+        <p><b>ALTER TABLE tbl_Livro</b></p>
+        <p><b>ALTER COLUMN ID_Autor SMALLINT</b></p>
+
+        <h3>ALTER TABLE - ADD PK</h3>
+        <p><b>ALTER TABLE Clientes</b></p>
+        <p><b>ADD PRIMARY KEY (ID_Cliente)</b></p>
+        <br>
+        <p>Obs. A coluna ID_Cliente deve existir antes de ser transformada em chave primária.</p>
+        <p>A coluna ID_Cliente receberá a Constraint (restrição) PRIMARY KEY, e passará a ser a chave primária da tabela.</p>
+    </article>
+    <article>
+        <h2>Inserir Dados</h2>
+        <p>Inserir dados em uma tabela:</p>
+        <p><b>INSERT INTO tabel (coluna1, coluna2,...)</b></p>
+        <p><b>VALUES (valor1, valor2,...);</b></p>
+        <br>
+        <h3>Inserir Dados - Tabela de Autores</h3>
+        <p><b>INSERT INTO tbl_autores (ID_Autor, Nome_Autor, SobreNome_Autor) VALUES (1, 'Daniel', 'Barret');</b></p>
+        <p><b>INSERT INTO tbl_autores (ID_Autor, Nome_Autor, SobreNOme_Autor) VALUES (2, 'Gerald', 'Carter');</b></p>
+        <br>
+        <h3>Inserir Dados - Tabela de Editoras</h3>
+        <p><b>INSERT INTO tbl_editoras (Nome_Editora) VALUES ('Prentice Hall');</b></p>
+        <p><b>INSERT INTO tbl_editoras (Nome_Editora) VALUES ('O Reilly');</b></p>
+        <br>
+        <h3>Inserir Dados - Tabela de Livros</h3>
+        <p><b>INSERT INTO tbl_Livro (Nome_Livro, ISBN, Data_Pub, Preco_Livro, ID_Autor, ID_Editora) VALUES ('Linux Command Line and Shell Scripting', <br>
+        143856969, '20091221', 68.35, 5, 4);</b></p>
+        <p><b>INSERT INTO tbl_Livro (Nome_Livro, ISBN, Data_Pub, Preco_Livro, ID_Autor, ID_Editora) VALUES ('SSH, the Secure Shell', <br>
+        127658789, '20091221', 58.30, 1, 2);</b></p>
+    </article>
+    <article>
+        <h2>Consultas Simples</h2>
+        <p><b>SELECT coluna FROM tabela;</b></p>
+        <br>
+        <p>Ex.:</p>
+        <p><b>SELECT Nome_Autor FROM tbl_Autores;</b></p>
+        <p><b>SELECT * FROM tbl_Autores;</b></p>
+        <p><b>SELECT Nome_Livro FROM tbl_Livro;</b></p>
+        <br>
+        <h3>Especificando Colunas</h3>
+        <p><b>SELECT colunas FROM tabela;</b></p>
+        <br>
+        <p>Ex.:</p>
+        <p><b>SELECT Nome_Livro, ID_Autor FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro, ISBN FROM tbl_Livro;</b></p>
+    </article>
+    <article>
+        <h2>Consulta com Ordenação</h2>
+        <p>A palavra-chave ORDER BY é usada para ordenar o conjunto-resultado de registros.</p>
+        <p>ASC - Ordem ascendente</p>
+        <p>DESC - Ordem descendente (inversa)</p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>ORDEMN BY Nome_Livro ASC;</b></p>
+        <br>
+        <h3>ORDER BY</h3>
+        <p>Ex.:</p>
+        <p><b>SELECT Nome_Livro, ID_Editora FROM tbl_Livro ORDER BY ID_Editora;</b></p>
+        <p>(ordem crescente)</p>
+        <br>
+        <p><b>SELECT Nome_Livro, Preco_Livro FROM tbl_Livro ORDER BY Preco_Livro DESC;</b></p>
+        <p>(Ordem decrescente)</p>
+    </article>
+    <article>
+        <h2>Criar Índices</h2>
+        <p>Declaração CREATE INDEX em uma tabela já existente:</p>
+        <p>Sintaxe:</p>
+        <br>
+        <p><b>CREATE INDEX nome_índice ON nome_tabela ( coluna );</b></p>
+        <p>ou</p>
+        <p><b>ALTER TABLE nome_tabela ADD INDEX  nome_índice (colunas);</b></p>
+        <br>
+        <br>
+        <p><i>Para apagar usamos o seguinte meio:</i></p>
+        <p><b>DROP INDEX nome_índex ON tabela;</b></p>
+        <p>Ex.:</p>
+        <p><b>DROP INDEX idx_editora ON tbl_Editoras;</b></p>
+    </article>
+    <article>
+        <h2>Cláusula WHERE</h2>
+        <p>Permite filtrar registros em uma consulta.</p>
+        <p>Sintaxe:</p>
+        <p><b>SELECT colunas FROM tabela WHERE coluna = valor;</b></p>
+        <br>
+        <p><i>Ex.:</i></p>
+        <p><b>SELECT Nome_Livro, Data_Pub FROM tbl_livro WHERE ID_Autor = 1;</b></p>
+        <br>
+        <p><b>SELECT ID_Autor, Nome_Autor FROM tbl_autores WHERE Sobrenome_Autor = 'Stanek';</b></p>
+    </article>
+    <article>
+        <h2>Operadores AND, OR  e NOT</h2>
+        <ul>
+            <li>Usados para filtar registros baseados em mais de um condição.</li>
+            <li>O operador AND mostra um registro se ambas as condições forem verdadeiras.</li>
+            <li>O operador OR mostra um registro se pelo menos uma das condições for verdadeira.</li>
+            <li>O operador NOT  é a negação de uma expressão.</li>
+        </ul>
+        <br>
+        <h3>Exemplo - Operadores AND, OR e NOT</h3>
+        <p><b>SELECT * FROM tbl_livro</b></p>
+        <p><b>WHERE ID_Livro > 2 AND ID_Autor < 3;</b></p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro > 2 OR ID_Autor < 3;</b></p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro > 2 AND NOT ID_Autor < 3;</b></p>
+    </article>
+    <article>
+        <h2>Operadores IN e NOT IN</h2>
+        <p>É utilizado para filtragem usando listas de valores no MySQL</p>
+        <br>
+        <p>Sintaxe:</p>
+        <p><b>SELECT coluna FROM tabela WHERE expressão | valor IN (lista de valores);</b></p>
+        <br>
+        <br>
+        <p>Ex.:</p>
+        <p><b>SELECT NomeLivro, IdEditora</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE IdEditora IN (2,4);</b></p>
+        <br>
+        <p>Exemplo mais bolado:</p>
+        <p><b>SELECT NomeLivro, IdEditora</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE  idEditora IN (</b></p>
+        <p><b>SELECT IdEditora</b></p>
+        <p><b>FROM tbl_editora</b></p>
+        <p><b>WHERE NomeEditora = 'Wiley' OR NomeEditora = 'Microsoft Press'</b></p>
+        <p><b>);</b></p>
+    </article>
+    <article>
+        <h2>Excluir Registros</h2>
+        <p>Sintaxe:</p>
+        <p><b>DELETE FROM tabela WHERE coluna = valor;</b></p>
+        <br>
+        <p>Ex.:</p>
+        <p><b>DELETE FROM tbl_autores WHERE ID_Autor = 2;</b></p>
+        <br>
+        <br>
+        <p>Obs.: Sempre use a cláusula <b>WHERE</b> para evitar a perda de dados da tabela!</p>
+    </article>
+    <article>
+        <h2>TRUNCATE TABLE</h2>
+        <ul>
+            <li>Remove todas as linhas de uma tabela sem registrar as exclusões de linhas individuais.</li>
+            <li>TRUNCATE TABLE é como a instrução DELETE sem usar a cláusula WHERE.</li>
+            <li>Entretanto, TRUNCATE TABLE é mais rápida e utiliza menos recursos de sistema e log de transações</li>
+        </ul>
+        <br>
+        <p>Exemplo: Excluir todos os registros da tabela <i>tbl_teste_incremento:</i></p>
+        <p><b>TRUNCATE TABLE tbl_teste_incremento;</b></p>
+    </article>
+    <article>
+        <h2>SQL Alias</h2>
+        <p>Pode-se dar um nome diferente a uma coluna ou tabela em uma consulta.</p>
+        <br>
+        <p><b>SELECT colunas</b></p>
+        <p><b>AS alias_coluna</b></p>
+        <p><b>FROM tabela AS alias_tabela;</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro</b></p>
+        <p><b>AS livro</b></p>
+        <p><b>FROM tbl_Livro;</b></p>
+    </article>
+    <article>
+        <h2>Funções de Agregação</h2>
+        <p>Funções de Agregação são funções SQL que permitem executar uma operação aritmética nos valores de uma coluna em todos os registros de uma tabela.</p>
+        <p>Retornam um valor único baseado em um conjunto de valores.</p>
+        <br>
+        <p>Sintaxe básica:</p>
+        <p><b>função(ALL | DISTINCT expressão)</b></p>
+        <p>Funções de Agregação:</p>
+        <ul>
+            <li>MIN = Valor Mínimo</li>
+            <li>MAX = Valor Máximo</li>
+            <li>AVG = Média Aritmética</li>
+            <li>SUM = Total (Soma)</li>
+            <li>COUNT = Contar quantidade de itens</li>
+        </ul>
+        <br>
+        <p>Exemplos:</p>
+        <br>
+        <p><b>SELECT COUNT(*) FROM tbl_autores;</b></p>
+        <br>
+        <p><b>SELECT COUNT(DISTINCT id_autor) FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT MAX(Preco_Livro) FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT MIN(Preco_Livro) FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT AVG(Preco_Livro) FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT SUM(Preco_Livro) FROM tbl_Livro;</b></p>
+    </article>
+    <article>
+        <h2>Renomear Tabelas</h2>
+        <p>Use o comando RENAME TABLE:</p>
+        <br>
+        <p><b>RENAME TABLE tabela1 TO tabela2;</b></p>
+        <br>
+        <p>Ex.:</p>
+        <p><b>RENAME TABLE Clientes TO Meus_Clientes;</b></p>
+        <p>Clientes: Nome atual</p>
+        <p>Meus_Clientes: Novo Nome</p>
+    </article>
+    <article>
+        <h2>Atualizar Registros</h2>
+        <p><b>UPDATE tabela</b></p>
+        <p><b>SET coluna = novo_valor_armazenado</b></p>
+        <p><b>WHERE coluna = valor_filtro;</b></p>
+        <br>
+        <p>Obs.: <br>
+        Caso não seja usada a cláusula WHERE para filtrar os registros, todos os dados da coluna serão alterados.</p>
+        <br>
+        <p><i>Ex.:</i></p>
+        <p><b>UPDATE tbl_livro</b></p>
+        <p><b>SET Nome_Livro = 'SSH, o Shell Seguro'</b></p>
+        <p><b>WHERE id_livro = 2;</b></p>
+        <br>
+        <p>Nome_Livro = Nome da coluna</p>
+        <p>Apenas linhas cujo id_livro for igual a 101 terão o valor alterado</p>
+    </article>
+    <article>
+        <h2>BETWEEN - Seleção de Intervalos</h2>
+        <p>SELECT Colunas FROM tabela</p>
+        <p>WHERE coluna BETWEEN valor1 AND valor2;</p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>WHERE Data_Pub BETWEEN '20030517' AND '20110517';</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro AS Livro, Preco_Livro AS Preço FROM tbl_livro</b></p>
+        <p><b>WHERE Preco_Livro BETWEEN 40.00 AND 60.00;</b></p>
+    </article>
+    <article>
+        <h2>LIKE e NOT LIKE</h2>
+        <ul>
+            <li>Determina se uma cadeia de caracteres específica corresponde a um padrão especificado. Um padrão pode incluir caracteres normais e curingas.</li>
+            <li>NOT LIKE inverte a comparação, verificando se a cadeia de caracteres NÃO corresponde ao padrão especificado.</li>
+        </ul>
+        <br>
+        <p>(Metacaracteres)</p>
+        <p>'%' -- Qualquer cadeia de 0 ou mais caracteres</p>
+        <p>'_' -- Subrinhado: Qualquer caracter único</p>
+        <br>
+        <p>Exemplo:</p>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro LIKE 'F%';</b></p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro NOT LIKE 'S%';</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro LIKE '_i%';</b></p>
+    </article>
+    <article>
+        <h2>REGEXP</h2>
+        <p>O MySQL suporta um tipo de operação de busca de padrões baseada em expressões regulares com o operador REGEXP.</p>
+        <br>
+        <p>[...] -- Qualquer caracter único no intervalo ou conjunto especificado ([a-h]; [aeiou])</p>
+        <br>
+        <p>[^...] -- Qualquer caracter único que não esteja no intervalo ou conjunto especificado ([^a-h]; [^aeiou])</p>
+        <br>
+        <ul>
+            <li>^ -- Início da string</li>
+            <li>$ -- Fim da string</li>
+            <li>a | b | c -- Alternação (a ou b ou c)</li>
+        </ul>
+        <br>
+        <p><i>Exemplo usando o REGEXP</i></p>
+        <br>
+        <p><b>SELECT Nome_Livro FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro REGEXP '^[FS]';</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro REGEXP '^[^FS]';</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro REGEXP '[ng]$';</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro FROM tbl_Livro</b></p>
+        <p><b>WHERE Nome_Livro REGEXP '^[FS]|Mi';</b></p>
+    </article>
+    <article>
+        <h2>Usando Valor-Padrão</h2>
+        <p>Criar um padrão:</p>
+        <p><b>ALTER TABLE nome_tabela</b></p>
+        <p><b>MODIFY COLUMN nome_coluna tipo_dados</b></p>
+        <p><b>DEFAULT 'valor_padrão';</b></p>
+        <br>
+        <p>Aplicando Padrões</p>
+        <p><b>ALTER TABLE tbl_autores</b></p>
+        <p><b>MODIFY COLUMN Sobrenome_Autor Varcahr(60)</b></p>
+        <p><b>DEFAULT 'da Silva';</b></p>
+        <br>
+        <p>Inserir registro para teste:</p>
+        <br>
+        <p><b>INSERT INTO tbl_autores (ID_Autor, Nome_autor)</b></p>
+        <p><b>VALUES (6, 'João');</b></p>
+        <br>
+        <p>Não foi especificado o sobrenome do autor; sera assumido padrão criado.</p>
+        <p>Verificando o resultado</p>
+        <p><b>SELECT * FROM tbl_autores;</b></p>
+    </article>
+    <article>
+        <h2>Backup do Banco de Dados</h2>
+        <p>Usar o comando mysqldump no terminal:</p>
+        <p><b>mysqldump -u root -p nome_banco > backup.slq</b></p>
+        <br>
+        <p><b>mysqldump -u root -p bd_biblioteca > /home/fabio/bd_biblioteca.sql</b></p>
+        <br>
+        <br>
+        <p>Você pode abrir o arquivo resultante com algum editor de textos no terminal para ver seu conteúdo.</p>
+    </article>
+    <article>
+        <h2>Restaurar Banco de Dados</h2>
+        <p>Crie um banco de dados novo no servidor, de nome teste-restore;</p>
+        <p>User o seguinte comando no terminal:</p>
+        <p><b>mysql -u root -p banco_criado < backup.sql</b></p>
+        <br>
+        <p>Exemplo: Crie um novo banco denominado teste-restore, digite:</p>
+        <p><b>mysql -u root -p teste-restore < /home/fabio/db_Biblioteca.sql</b></p>
+    </article>
+    <article>
+        <h2>GROUP BY</h2>
+        <p>Usamos a cláusula GROUP BY  para agrupar registros em subgrupos baseados em colunas ou valores retornados por uma expressão.</p>
+        <p>Sintaxe básica:</p>
+        <br>
+        <p><b>SELECT colunas, função_agregação()</b></p>
+        <p><b>FROM tabela</b></p>
+        <p><b>WHERE filtro</b></p>
+        <p><b>GROUP BY colunas</b></p>
+        <br>
+        <br>
+        <h3>Criar tabela para teste de GROUP BY</h3>
+        <br>
+        <p><b>CREATE TABLE Venedas (</b></p>
+        <p><b>ID Smallint Primary Key,</b></p>
+        <p><b>Nome_Vendedor Varchar(20),</b></p>
+        <p><b>Quantidade int,</b></p>
+        <p><b>Produto Varchar(20),</b></p>
+        <p><b>Cidade Varchar(20)</b></p>
+        <p><b>);</b></p>
+        <br>
+        <br>
+        <h3>Inserir dados para teste de GROUP BY</h3>
+        <p><b>INSERT INTO Vendas (ID, Nome_Vendedor, Quantidade, Produto, Cidade)</b></p>
+        <p><b>VALUES (10, 'Jorge', 1400, 'Mouse', 'São Paulo');</b></p>
+        <br>
+        <p><b>INSERT INTO Vendas (ID, Nome_Vendedor, Quantidade, Produto, Cidade)</b></p>
+        <p><b>VALUES (12, 'Tatiana', 1220, 'Teclado', 'São Paulo');</b></p>
+        <br>
+        <p><b>INSERT INTO Vendas (ID, Nome_Vendedor, Quantidade, Produto, Cidade)</b></p>
+        <p><b>VALUES (14, 'Ana', 1700, 'Teclado', 'Rio de Janeiro');</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo:</i></p>
+        <p><b>SELECT Cidade, SUM(Quantidade) As Total</b></p>
+        <p><b>FROM Vendas</b></p>
+        <p><b>GROUP BY Cidade;</b></p>
+    </article>
+    <article>
+        <h2>HAVING</h2>
+        <p>Cláusula usada para especificar condições de filtragem em grupos de registros ou agregações.</p>
+        <p>É frequentemente usada com a cláusula GROUP BY para filtrar as colunas agrupadas.</p>
+        <p>Sintaxe:</p>
+        <br>
+        <p><b>SELECT colunas, função_agregação()</b></p>
+        <p><b>FROM tabela</b></p>
+        <p><b>WHERE filtro</b></p>
+        <p><b>GROUP BY colunas</b></p>
+        <p><b>HAVING filtro_agrupamento</b></p>
+        <br>
+        <h3>HAVING - Exemplo 01:</h3>
+        <p>Consulta retornando total de vendas das cidades com menos de 2500 produtos vendidos:</p>
+        <br>
+        <p><b>SELECT Cidade, SUM(Quantidade) AS Total</b></p>
+        <p><b>FROM Vendas</b></p>
+        <p><b>GROUP BY Cidade</b></p>
+        <p><b>HAVING SUM(Quantidade) < 2500;</b></p>
+        <br>
+        <br>
+        <h3>HAVING - Exemplo 02:</h3>
+        <p>Consulta retornando total de vendas do produto 'Teclado' das cidades com menos de 1500 teclados vendidos:</p>
+        <br>
+        <p><b>SELECT Cidade, SUM(Quantidade) AS TotalTeclados</b></p>
+        <p><b>FROM Vendas</b></p>
+        <p><b>WHERE Produtos = 'Teclado'</b></p>
+        <p><b>GROUP BY Cidade</b></p>
+        <p><b>HAVING SUM(Quantidade) < 1500;</b></p>
+    </article>
+    <article>
+        <h2>VIEWS</h2>
+        <ul>
+            <li>Uma exibição (Visão) é uma tabela virtual baseada no conjunto de resultados de uma consulta SQL.</li>
+            <li>Contém linhas e colunas como uma tabela real, e pode receber comandos como declarações JOIN, WHERE e funções como uma tabela normal.</li>
+            <li>Mostra sempre resultados de dados atualizados, pois o motor do banco de dados recria os dados toda vez que um usuário consulta a visão.</li>
+        </ul>
+        <br>
+        <h3>VIEWS - Criação</h3>
+        <p><b>CREATE VIEW [Nome_Exibição]</b></p>
+        <p><b>AS SELECT colunas</b></p>
+        <p><b>FROM tabela</b></p>
+        <p><b>WHERE condições;</b></p>
+        <br>
+        <br>
+        <p><b>CREATE VIEW vw_LivrosAutores</b></p>
+        <p><b>AS SELECT tbl_Livro.Nome_Livro AS Livro,</b></p>
+        <p><b>tbl_autores.Nome_Autor AS Autor</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>INNER JOIN tbl_autores</b></p>
+        <p><b>ON tbl_Livro.ID_Autor = tbl_autores.ID_Autor;</b></p>
+    </article>
+    <article>
+        <h2>Views - Alteração</h2>
+        <p><b>ALTER VIEW vw_LivrosAutores AS</b></p>
+        <p><b>SELECT tbl_Livro.Nome_Livro AS Livro, tbl_autores.Nome_Autor</b></p>
+        <p><b>AS Autor, Preco_Livro AS Valor</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>INNER JOIN tbl_autores</b></p>
+        <p><b>ON tbl_Livro.ID_Autor = tbl_autores.ID_Autor;</b></p>
+        <br>
+        <br>
+        <p>Uso:</p>
+        <p><i>SELECT * FROM vw_LivroAutores;</i></p>
+        <br>
+        <h2>Exluir uma VIEW</h2>
+        <p><b>DROP VIEW vw_LivroAutores;</b></p>
+    </article>
+    <article>
+        <h2>JOINS</h2>
+        <ul>
+            <li>A cláusula JOIN é usada para combinar dados provenientes de duas ou mais tabelas, baseado em um relacionamento entre colunas destas tabelas.</li>
+            <li><b>INNER JOIN:</b> Retorna linhas quando houver pelo menos uma correspondência em ambas as tabelas.</li>
+            <li><b>OUTER JOIN:</b> Retorna linhas mesmo quando não houver pelo menor uma correspondência em uma das tabelas (ou ambas). <br>
+            O OUTER JOIN divide-se em LEFT JOIN, RIGHT JOIN e FULL JOIN.</li>
+        </ul>
+        <br>
+        <br>
+        <h3>INNERM JOIN</h3>
+        <p><b>SELECT colunas</b></p>
+        <p><b>FROM tabela1</b></p>
+        <p><b>INNER JOIN tabela2</b></p>
+        <p><b>ON tabela1.coluna = tabela2.coluna;</b></p>
+        <br>
+        <br>
+        <br>
+        <p>Ex.:</p>
+        <p><b>SELECT * FROM tbl_Livro</b></p>
+        <p><b>INNER JOIN tbl_autores</b></p>
+        <p><b>ON tbl_Livro.ID_Autor = tbl_autores.ID_Autor;</b></p>
+    </article>
+    <article>
+        <h2>OUTER JOINS</h2>
+        <ul>
+            <li><b>LEFT JOIN:</b> Retorna todas as linhas da tabela à esquerda, mesmo se não houver nenhuma correspondência na tabela à direita.</li>
+            <li><b>RIGHT JOIN:</b> Retorna todas as linhas da tabela à direita, mesmo se não houver nenhuma correspondência na tabela à esquerda.</li>
+            <li><b>FULL JOIN:</b> Retornba linhas quando houver uma correspondência em qualquer uma das tabelas.</li>
+        </ul>
+        <br>
+        <br>
+        <h3>LEFT JOIN</h3>
+        <p><b>SELECT coluna</b></p>
+        <p><b>FROM tabela_esq</b></p>
+        <p><b>LEFT (OUTER) JOIN tabela_dir</b></p>
+        <p><b>ON tabela_esq.coluna = tabela_dir.coluna;</b></p>
+        <br>
+        <p><i>Ex.:</i></p>
+        <p><b>SELECT * FROM tbl_autores</b></p>
+        <p><b>LEFT JOIN tbl_Livro</b></p>
+        <p><b>ON tbl_Livro.ID_Autor = tbl_autores.ID_Autor;</b></p>
+        <br>
+        <br>
+        <h3>LEFT JOIN excluindo correspondência</h3>
+        <p><b>SELECT coluna</b></p>
+        <p><b>FROM tabela_esq</b></p>
+        <p><b>LEFT JOIN tabela_dir</b></p>
+        <p><b>ON tabela_esq.coluna = tabela_dir.coluna</b></p>
+        <p><b>ON tabela_esq.coluna = tabela_dir.coluna</b></p>
+        <p><b>WHERE tabela_dir.coluna IS NULL;</b></p>
+        <br>
+        <p><i>Ex.:</i></p>
+        <p><b>SELECT * FROM tbl_autores</b></p>
+        <p><b>LEFT JOIN tbl_Livro</b></p>
+        <p><b>ON tbl_Livro.ID_Autor = tbl_autores.ID_Autor</b></p>
+        <p><b>WHERE tbl_Livro.ID_Autor IS NULL;</b></p>
+        <br>
+        <br>
+        <h3>RIGHT JOIN</h3>
+        <p>Igual ao LEFT JOIN porem agora a direita, exemplo:</p>
+        <br>
+        <p><b>SELECT colunas</b></p>
+        <p><b>FROM tabela_esq</b></p>
+        <p><b>RIGHT JOIN tabela_dir</b></p>
+        <p><b>ON tabela_esq.coluna = tabela_dir.coluna;</b></p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro AS li</b></p>
+        <p><b>RIGHT JOIN tbl_editoras AS Ed</b></p>
+        <p><b>ON Li.ID_editora = Ed.ID_editora;</b></p>
+    </article>
+    <article>
+        <h2>CONCATENAÇÃO DE STRINGS</h2>
+        <p>É possível concatenar strings usando-se a função CONCAT().</p>
+        <p><i>Sintaxe:</i></p>
+        <p><b>CONCAT (string | nome_coluna, string | nome_coluna)</b></p>
+        <br>
+        <br><p><i>Ex.:</i></p>
+        <p><b>SELECT CONCAT('Fábio ', 'dos Reis') AS 'Meu Nome';</b></p>
+        <br>
+        <p><b>SELECT CONCAT(Nome_autor, ' ', Sobrenome_autor)</b></p>
+        <p><b>AS 'Nome Completo' FROM tbl_autores;</b></p>
+        <br>
+        <p><b>SELECT CONCAT('Eu gosto do livro ', Nome_Livro)</b></p>
+        <p><b>FROM tbl_Livro WHERE ID_autor = 2;</b></p>
+    </article>
+    <article>
+        <h2>IFNULL e COALESCE</h2>
+        <p><i>IFNULL (coluna, substituição)</i></p>
+        <p>Ex.:</p>
+        <p><b>SELECT CONCAT('A quantidade adquirida é ', ' ', IFNULL(quantidade, 0))</b></p>
+        <p><b>FROM teste_nulos</b></p>
+        <p><b>WHERE item = 'Teclado';</b></p>
+        <br>
+        <br>
+        <br>
+        <p>COALESCE (coluna1, coluna2, ..., colunaN)</p>
+        <p>Essa função retornará o primeiro valor não-nulo encontrado em seus argumentos.</p>
+        <p>Ex.:</p>
+        <p><b>SELECT CONCAT('A quantidade adquirida é ', ' ', COALESCE(NULL, quantidade, NULL, 0))</b></p>
+        <p><b>FROM teste_nulos</b></p>
+        <p><b>WHERE item = 'Teclado';</b></p>
+    </article>
+</body>
+</html>
