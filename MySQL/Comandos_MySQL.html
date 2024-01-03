@@ -863,5 +863,97 @@
         <p><b>FROM teste_nulos</b></p>
         <p><b>WHERE item = 'Teclado';</b></p>
     </article>
+    <article>
+        <h2>OPERAÇÕES ARITMÉTICAS</h2>
+        <p>É possível realizar operações matemáticas simples nos valores de uma coluna e retornar resultados em uma coluna calculada.</p>
+        <p>Para isso usamos os operadores matemáticos comuns:</p>
+        <p><b>+</b> Soma</p>
+        <p><b>-</b> Subtração</p>
+        <p><b>/</b> Divisão</p>
+        <p><b>*</b> Multiplicação</p>
+        <p><b>% ou MOD</b> Módulo ou resto da divisão</p>
+        <p><b>DIV</b> Divisão inteira</p>
+        <br>
+        <br>
+        <br>
+        <p><i>Exemplos:</i></p>
+        <p><b>SELECT 3 * 9;</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro, Preco_Livro * 5 AS 'Preço de 5 unidades'</b></p>
+        <p><b>FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT 2 * 9 / 3;</b></p>
+        <br>
+        <p><b>SELECT Nome_Livro, Preco_Livro / 2 AS 'Preço com 50% de desconto'</b></p>
+        <p><b>FROM tbl_livro;</b></p>
+        <br>
+        <p><b>SELECT 10 MOD 3;</b></p>
+    </article>
+    <article>
+        <h2>FUNÇÕES MATEMÁTICAS:</h2>
+        <p>É possível também utilizar funções matemáticas nos valores de uma coluna.</p>
+        <p>Abaixo vemos algumas funções matemáticas mais comuns:</p>
+        <br>
+        <p><i>CEILING()</i> Arredondar para cima</p>
+        <p><i>FLOOR()</i> Arredondar para baixo</p>
+        <p><i>PI()</i> Retorna o valor de Pi</p>
+        <p><i>POW(x,y)</i> Retorna x elevado a y</p>
+        <p><i>SQRT()</i> Raiz quadrada de um argumento</p>
+        <p><i>SIN</i> Retorna o seno de um número dado em radianos</p>
+        <p><i>HEX()</i> Retorna a representação hexadecimal de um valor decimal</p>
+        <br>
+        <br>
+        <p><i>Exemplos:</i></p>
+        <p><b>SELECT Nome_Livro, CEILING(Preco_Livro * 5) AS 'Preço Arredondado'</b></p>
+        <p><b>FROM tbl_Livro;</b></p>
+        <br>
+        <p><b>SELECT PI();</b></p>
+        <br>
+        <p><b>SELECT POW(2,4);</b></p>
+        <br>
+        <p><b>SELECT SQRT(81);</b></p>
+        <br>
+        <p><b>SELECT SIN(PI());</b></p>
+        <br>
+        <p><b>SELECT HEX(1200);</b></p>
+    </article>
+    <article>
+        <h2>Funções e Procedimentos</h2>
+        <p>São dois tipos de rotinas armazenadas, parte da especificação SQL.</p>
+        <p>São um pouco similares, mas com aplicações diferentes.</p>
+        <p>São invocadas de formas diferentes também (CALL x declaração)</p>
+        <br>
+        <h3>Funções</h3>
+        <p>Uma função é usada para gerar um valor que pode ser usado em uma expressão.</p>
+        <p>O valor é geralmente baseado em um ou mais parâmetros fornecidos à função.</p>
+        <p>É executada como parte de uma expressão.</p>
+        <br>
+        <p><i>SINTAXE DE UMA FUNÇÃO</i></p>
+        <p><b>CREATE FUNCTION nome_função (parâmetros)</b></p>
+        <p><b>RETURNS tipo_dados</b></p>
+        <p><b>código_da_função;</b></p>
+        <br>
+        <p><i>INVOCANDO UMA FUNÇÃO</i></p>
+        <p><b>SELECT nome_função(parâmetros);</b></p>
+        <br>
+        <h3>FUNÇÕES - EXEMPLOS</h3>
+        <p>Criando a função:</p>
+        <p><b>CREATE FUNCTION fn_teste (a DECIMAL(10,2), b INT)</b></p>
+        <p><b>RETURNS INT</b></p>
+        <p><b>RETURN a * b</b></p>
+        <br>
+        <p>Invocando a função:</p>
+        <p><b>SELECT fn_teste(2.5, 4) AS Resultado;</b></p>
+        <br>
+        <p>Exemplo 2:</p>
+        <p><b>SELECT Nome_Livro, fn_teste(Preco_Livro, 6) AS 'Preço de 6 unidades'</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro = 2;</b></p>
+        <br>
+        <h3>Apagar funções</h3>
+        <p><i>DROP FUNCTION nome_função;</i></p>
+        <p><i>Exemplo:</i></p>
+        <p><b>DROP FUNCTION fn_teste;</b></p>
+    </article>
 </body>
 </html>
