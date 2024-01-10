@@ -955,5 +955,982 @@
         <p><i>Exemplo:</i></p>
         <p><b>DROP FUNCTION fn_teste;</b></p>
     </article>
+    <article>
+        <h2>Procedimentos Armazenados</h2>
+        <p><i>Stored Procedures</i></p>
+        <p>Um Procedimento armazenado é uma sub-rotina disponível para aplicações que acessam sistemas de bancos de dados relacionados.</p>
+        <p>Podem ser usadas para validação de dados, controle de acesso, execução de declarações SQL complexas e outras situações.</p>
+        <p>Desde a versão 5.0 o MySQL suporta a execução de <i> Stored Procedures.</i></p>
+        <br>
+        <h3>Procedimentos Armazenados <br>
+        (Stored Procederus)</h3>
+        <p><i>Sintaxe de criação do Procedimento:</i></p>
+        <p><b>CREATE PROCEDURE nome_procedimento (parâmetros)</b></p>
+        <p><b>declarações;</b></p>
+        <br>
+        <br>
+        <p><i>Invocando o Procedimento:</i></p>
+        <p><b>CALL nome_procedimento (parâmetros);</b></p>
+        <br>
+        <br>
+        <p><i><b>EXEMPLO PROCEDIMENTO</b></i></p>
+        <p><i>Criar procedimento:</i></p>
+        <p><b>CREATE PROCEDURE verPreço (varLivro smallint)</b></p>
+        <p><b>SELECT CONCAT('O preço é ', Preco_Livro) As Preço</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro = VarLivro;</b></p>
+        <br>
+        <br>
+        <p><i>Invocando Procedimento:</i></p>
+        <p><b>CALL verPreço(3);</b></p>
+        <br>
+        <br>
+        <p><i>Excluir Procedimentos:</i></p>
+        <p><b>DROP PROCEDURE nome_procedimento;</b></p>
+    </article>
+    <article>
+        <h2>Blocos BEGIN... END;</h2>
+        <p>São "contêineres" usados para delimitar blocos de comandos a serem executados pela função ou <i>stored procedure.</i></p>
+        <p>Cada declaração aninhada possui um delimitador (;).</p>
+        <p>Um bloco <i>BEGIN</i> pode ser aninhado dentro de outros blocos.</p>
+        <p>Porém o delimitador <b>;</b> pode ser problemático pois, ao ser encontrado em um procedimento ou função, a finaliza imediatamente. <br>
+        É uma espécie de alias para o comando GO.</p>
+        <p>Devemos então mudar esse "atalho" e, para isso, usamos o comando <i>DELIMITER</i> para criar rotinas com declarações compostas.</p>
+        <br>
+        <h3>Exemplo de DELIMITER, BEGIN... END em função</h3>
+        <p><i>Criando função</i></p>
+        <p><b>DELIMITER $$</b></p>
+        <p><b>CREATE FUNCTION aumenta_preco (preco DECIMAL(10,2), taxa DECIMAL(10,2))</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>RETURN preco + preco * taxa / 100;</b></p>
+        <p><b>END$$</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Invocando a função para aumentar o preço em 10%:</i></p>
+        <p><b>SELECT aumenta_preco(50.00, 10.00) AS Resultado;</b></p>
+        <br>
+        <h3>Exemplo de DELIMITER, BEGIN... END em procedimento</h3>
+        <p><i>Criando procedimento</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE verPreço (varLivro smallint)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>SELECT CONCAT('O preço é ', Preco_Livro) AS Preço</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro = VarLivro;</b></p>
+        <p><b>SELECT 'Procedimento executado com sucesso!';</b></p>
+        <p><b>END //</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Invocando o procedimento:</i></p>
+        <p><b>CALL verPreço(3);</b></p>
+    </article>
+    <article>
+        <h2>Parâmetros em SP</h2>
+        <p>Podemos usar parâmetros para passar argumentos para o procedimento armazenado e obter valores a partir dele.</p>
+        <p>Em MySQL existem três tipos de parâmetros:</p>
+        <ul>
+            <li>IN</li>
+            <li>OUT</li>
+            <li>INOUT</li>
+        </ul>
+        <br>
+        <h3>Parâmetro IN</h3>
+        <p>É o modo padrão. Quando você define um parâmetro IN em um SP, o programa chamador tem de passar um argumento ao procedimento armazenado.</p>
+        <p>Essa passagem de parâmetros é do tipo passagem por valor, portanto o valor do parâmetro fora do procedimento armazenado permanece inalterado.</p>
+        <p>São semelhantes aos parâmetros de função.</p>
+        <br>
+        <h3>Parâmetro OUT</h3>
+        <p>O valor de um parâmetro OUT pode ser alterado dentro do procedimento armazenado e seu novo valor é passado de volta ao programa chamador.</p>
+        <p>O procedimento armazenado não pode acessar o valor inicial do parâmetro OUT quando ele é iniciado, e a variável passada é "limpa".</p>
+        <p>Procedimentos OUT são similares aos procedimentos INOUT, com uma diferença significativa: no parâmetro OUT, o valor do parâmetro, portanto o valor <br>
+        da variável cujo valor é passado como parâmetros é ajustado para NULL no inicio da execução do procedimento.</p>
+        <br>
+        <h3>Parâmetro INOUT</h3>
+        <p>Trata-se de uma combinação dos parâmetros IN e OUT.</p>
+        <p>Isso significa que o programa chamador deve passar o argumento e o procedimento armazenado pode modificar o parâmetro INOUT e repassar <br>
+        o novo valor de volta ao programa chamador.</p>
+        <p>Portanto, uma referência à variável externa é passada ao procedimento.</p>
+        <br>
+        <h3>Sintaxe de um Parâmetro</h3>
+        <p><i><b>Modo nome_param tipo_param(tamanho_param)</b></i></p>
+        <br>
+        <p>O modo pode ser <i>IN, OUT OU INOUT,</i> dependendo do propósito do procedimento armazenado.</p>
+        <br>
+        <h3>EXEMPLOS:</h3>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE editora_livro (IN editora VARCAHR(50))</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>SELECT L.Nome_Livro, E.Nome_Editora</b></p>
+        <p><b>FROM tbl_Livro AS L</b></p>
+        <p><b>INNER JOIN tbl_editoras AS E</b></p>
+        <p><b>ON L.ID_editora = E.ID_Editora</b></p>
+        <p><b>WHERE E.Nome_Editora = editora;/</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><b>CALL editora_livro('Wiley');</b></p>
+        <br>
+        <p><i>Declarar variavel em SQL use <b>SET</b></i></p>
+        <P><B>SET @minhaeditora = 'Wiley';</B></P>
+        <p><b>CALL editora_livro(@minhaeditora);</b></p>
+        <br>
+        <h3>EXEMPLO 2:</h3>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE aumenta_preco(IN codigo INT, taxa DECIMAL(10,2))</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>UPDATE tbl_Livro</b></p>
+        <p><b>SET Preco_Livro = tbl_Livro.Preco_Livro + tbl_Livro.Preco_Livro * taxa / 100</b></p>
+        <p><b>WHERE ID_Livro = Codigo;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Verificando o preço do livro:</i></p>
+        <p><b>SELECT * FROM tbl_Livro WHERE ID_Livro = 4;</b></p>
+        <br>
+        <p><i>Aplicando o procedimento de aumento agora:</i></p>
+        <p><b>SET @livro = 4;</b></p>
+        <p><b>SET @aumento = 20;</b></p>
+        <p><b>CALL aumenta_preco(@livro, @aumento);</b></p>
+        <br>
+        <p><i>Verificando aumento aplicado:</i></p>
+        <p><b>SELECT * FROM tbl_Livro WHERE ID_Livro = 4;</b></p>
+        <h2>EXEMPLO DE PARÂMETRO OUT:</h2>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE teste_out (IN id INT, OUT livro VARCHAR(50))</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>SELECT Nome_Livro</b></p>
+        <p><b>INTO livro</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro = id;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><b>CALL teste_out(3, @livro);</b></p>
+        <p><b>SELECT @livro;</b></p>
+        <br>
+        <p><i>O parâmetro <b>OUT</b> é um parâmetro no qual retorna o valor de algo em uma variavel.</i></p>
+        <h2>EXEMPLO Parâmetro INOUT:</h2>
+        <p><i>No exemplo a seguir, o valor da variável que for passado ao parâmetro "valor" será refletido na própria variável externa, <br>
+        a qual terá seu valor alterado também.</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE aumento (INOUT valor DECIMAL(10,2), taxa DECIMAL(10,2))</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>SET valor = valor + valor * taxa / 100;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Testando: criamos a variável valorinicial, e a usamos para passar o parâmetro valor. Vamos aumentar o valor em 15%.</i></p>
+        <p><b>SET @valorinicial = 20.00;</b></p>
+        <p><b>SELECT @valorinicial;</b></p>
+        <br>
+        <p><b>CALL aumento(@valorinicial, 15.00);</b></p>
+        <br>
+        <p><i>Verificamos agora se a variável externa @valorinicial foi alterada:</i></p>
+        <p><b>SELECT @valorinicial;</b></p>
+        <p><i>Vale mencionar que @valorinicial estará valendo 23.</i></p>
+    </article>
+    <article>
+        <h2>Escopo das Variáveis</h2>
+        <p>O escopo de uma variável diz respeito aos locais onde a variável "existe" ou seja, onde ela pode ser acessada.</p>
+        <p>Níveis de Escopo:</p>
+        <ul>
+            <li>Global (acessíveis de qualquer local)</li>
+            <li>Sessão (variáveis @ e de sistema)</li>
+            <li>Parâmetros (nível de rotinas, criadas quando a rotina é chamada, e destruídas quando a rotina termina)</li>
+            <li>Local (limitadas ao bloco BEGIN onde foram declaradas).</li>
+        </ul>
+        <br>
+        <h3>Declaração de Variáveis Locais</h3>
+        <p>Podemos criar variáveis locais em um procedimento ou função usando uma declaração DECLARE dentro de um bloco BEGIN.</p>
+        <p>A variável pode ser criada e inicializada com um valor se desejado.</p>
+        <p>Ficam disponíveis apenas dentro do bloco onde foram criadas, e em blocos que existam dentro do bloco onde a variável foi criada.</p>
+        <p>Após o bloco ter sido executado e encerrado, a variável é desalocada da memória.</p>
+        <br>
+        <h3>Sintaxe de declaração de variáveis locais</h3>
+        <p><i>-- Sintaxe:</i></p>
+        <p><b>DECLARE nome_var1 tipo, nome_var2 tipo</b></p>
+        <p><b>[DEFAULT valor_padrão]</b></p>
+        <br>
+        <p>A instrução DECLARE deve vir antes de qualquer outra instrução no bloco BEGIN.</p>
+        <p>Podemos declarar diversas variáveis numa mesma instrução DECLARE, desde que sejam todas do mesmo tipo de dados e <i>valor-padrão.</i></p>
+        <p>Como atribuir valores às variáveis:</p>
+        <p>Podemos usar a instrução <b>SET</b> ou ainda <b>SELECT... INTO</b></p>
+        <br>
+        <br>
+        <h3>Exemplo SELECT...INTO</h3>
+        <p><i>O desconto será dado diretamente em reais, não porcentagem, os comandos devem ser ajustados para retornar paenas uma linha no SELECT...INTO;</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE FUNCTION calcula_desconto(livro INT, desconto DECIMAL(10,2))</b></p>
+        <p><b>RETURNS DECIMAL(10,2)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLARE preco DECIMAL(10,2);</b></p>
+        <p><b>SELECT Preco_Livro FROM tbl_Livro</b></p>
+        <p><b>WHERE ID_Livro = livro INTO preco;</b></p>
+        <p><b>RETURN preco - desconto;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Testando com o livro de ID 4 e desconto de R$ 10,00:</i></p>
+        <p><b>SELECT * FROM tbl_Livro WHERE ID_Livro = 4;</b></p>
+        <p><b>SELECT calcula_desconto(4, 10.00);</b></p>
+        <br>
+        <p><b>SELECT * FROM tbl_Livro WHERE ID_Livro = 4;</b></p>
+    </article>
+    <article>
+        <h2>Blocos Condicionais <br>
+        IF e CASE</h2>
+        <p><b>Blocos Condicionais</b></p>
+        <p>Há dois tipos básicos de blocos condicionais:</p>
+        <p>1. IF.. ELSEIF.. ELSE..END IF;</p>
+        <p>2. CASE..WHEN..THENN..ELSE..END CASE;</p>
+        <br>
+        <h3>Sintaxe de um bloco IF:</h3>
+        <p><i>Sintaxe de um bloco IF:</i></p>
+        <p><b>IF condição THEN lista_declarações</b></p>
+        <p><b>[ELSEIF condição THEN lista_declarações]</b></p>
+        <p><b>...</b></p>
+        <p><b>[ELSE lista_declarações]</b></p>
+        <p><b>END IF;</b></p>
+        <br>
+        <h3>Sintaxe de um bloco CASE:</h3>
+        <p><i>Sintaxe de um bloco CASE:</i></p>
+        <p><b>CASE valor_referência</b></p>
+        <p><b>WHEN valor_comparado THEN</b></p>
+        <p><b>lista_declarações</b></p>
+        <p><b>WHEN valor_comparado THEN</b></p>
+        <p><b>lista_declarações</b></p>
+        <p><b>...</b></p>
+        <p><b>ELSE lista_declarações</b></p>
+        <p><b>END CASE;</b></p>
+        <br>
+        <h3>Exemplo bloco IF:</h3>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE FUNCTION calcula_imposto(salario DEC(8,2))</b></p>
+        <p><b>RETURNS DEC(8,2)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLARE valor_imposto DEC(8,2);</b></p>
+        <p><b>IF salario < 1000.00 THEN</b></p>
+        <p><b>SET valor_imposto = 0.00</b></p>
+        <p><b>ELSEIF salario < 2000.00 THEN</b></p>
+        <p><b>SET valor_imposto = salario * 0.15;</b></p>
+        <p><b>ELSEIF salario < 3000.00 THEN</b></p>
+        <p><b>SET valor_imposto = salario * 0.22;</b></p>
+        <p><b>ELSE</b></p>
+        <p><b>SET valor_imposto = salario * 0.27;</b></p>
+        <p><b>END IF;</b></p>
+        <p><b>RETURN valor_imposto/b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Vamos testar passando valores de salário como parâmetros. Usaremos valores como 850, 1200 e 6000 para testes:</i></p>
+        <p><b>SELECT calcula_imposto(850);</b></p>
+        <br>
+        <h3>Exemplo Bloco CASE:</h3>
+        <p><b>CREATE FUNCTION calcula_imposto_case(salario DEC(8,2))</b></p>
+        <p><b>RETURNS DEC(8,2)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLATE valor_imposto DEC(8,2);</b></p>
+        <p><b>CASE</b></p>
+        <p><b>WHEN salario < 1000.00 THEN</b></p>
+        <p><b>SET valor_imposto = 0.00;</b></p>
+        <p><b>WHEN salario < 2000.00 THEN</b></p>
+        <p><b>SET valor_imposto = salario * 0.15;</b></p>
+        <p><b>WHEN salario < 3000.00 THEN</b></p>
+        <p><b>SET valor_imposto = salario * 0.22;</b></p>
+        <p><b>ELSE</b></p>
+        <p><b>SET valor_imposto = salario * 0.27;</b></p>
+        <p><b>END CASE;</b></p>
+        <p><b>RETURN valor_imposto;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Vamos testar passando valores de salários como parâmetros. Usaremos valores como 850, 1200 e 6000 para testes;</i></p>
+        <p><b>SELECT calcula_imposto_case(850.00);</b></p>
+    </article>
+    <article>
+        <h2>Comandos SHOW, DESCRIBE e mysqlshow</h2>
+        <p><i>Vendo os comandos <b>SHOW</b> disponiveis pelo prompt de comando</i></p>
+        <ul>
+            <li>mysql -u root -p</li>
+            <li>minha_senha</li>
+            <li>HELP SHOW</li>
+        </ul>
+        <br>
+        <h3>COMANDOS SHOW E UTILIDADES:</h3>
+        <p><b>SHOW DATABASES;</b></p>
+        <p>Ver os bancos de dados criados no sistema.</p>
+        <br>
+        <br>
+        <p><b>SHOW TABLES;</b></p>
+        <p>Ver as tabelas do banco de dados em uso.</p>
+        <br>
+        <br>
+        <p><b>SHOW CREATE TABLE Nome_Tabela;</b></p>
+        <p>Tras os codigos e campos usados na criação da tabela.</p>
+        <br>
+        <br>
+        <p><b>SHOW CREATE PROCEDURE Nome_Procedure;</b></p>
+        <p>Mostra informações gerais sobre a criação do Procedure.</p>
+        <br>
+        <br>
+        <p><b>SHOW CREATE FUNCTION Nome_Função;</b></p>
+        <p>Com esse comando voce obtem todas as informações sobre a função.</p>
+        <br>
+        <br>
+        <p><b>SHOW COLUMNS FROM Nome_Tabela;</b></p>
+        <p>|Trás as colunas da tabela especificada.</p>
+        <br>
+        <br>
+        <p><b>SHOW FULL COLUMNS FROM Nome_Tabela;</b></p>
+        <p>Trás as colunas com mais informações ainda.</p>
+        <br>
+        <br>
+        <p><b>SHOW COLUMNS FROM Nome_Tabela LIKE 'I%';</b></p>
+        <p>Trás as colunas com a letra iniciando em "I".</p>
+        <br>
+        <br>
+        <p><b>SHOW COLUMNS FROM Nome_Tabela WHERE Type LIKE 'varchar%';</b></p>
+        <p>Trás todas as colunas da tabela que são do tipo do dado especificado, no caso do exemplo <b>varchar.</b></p>
+        <br>
+        <br>
+        <p><b>SHOW GRANTS FOR root@localhost;</b></p>
+        <p>Trás todos os privilegios do usuario especificado.</p>
+        <br>
+        <h3>COMANDO DESCRIBE</h3>
+        <p><b>DESCRIBE</b> nada mais é que um atalho para o comando <b>SHOW COLUMNS FROM</b>.</p>
+        <p><i>EXEMPLO DE USO:</i></p>
+        <p><b>DESCRIBE Nome_Tabela;</b></p>
+        <br>
+        <p>Vale mencionar que se pode abreviar o comando <i>DESCRIBE</i> para DESC.</p>
+        <p><b>DESC Nome_Tabela;</b></p>
+        <br>
+        <p><i>VALE MENCIONAR QUE O COMANDO <b>DESCRIBE</b> NÃO SUPORTA AS CLAUSULAS <b>WHERE</b> e <b>LIKE</b>.</i></p>
+        <h3>COMANDO mysqlshow</h3>
+        <p>Vale mencionar que o comando <b>mysqlshow</b> não roda no prompt do MySQL, então para usar esteja no prompt do sistema operacional.</p>
+        <p><i>PARA VER A DESCRIÇÃO DO COMANDO USE:</i></p>
+        <p><b>man mysqlshow</b></p>
+        <br>
+        <p>O comando mysqlshow permite obter informações sobre o banco de dados, tabelas e colunas.</p>
+        <br>
+        <p><i>SINTAXE:</i></p>
+        <p><b>mysqlshow -u usuario -p [banco de dados [ tabela [ coluna]]]</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 1: Desejo ver os bancos de dados disponiveis.</i></p>
+        <p><b>mysqlshow -u root -p</b></p>
+        <p><i>Após isso vai pedir a senha e você deve coloca-la.</i></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 2: Desejo ver as tabelas dentro do banco de dados chamado db_biblioteca.</i></p>
+        <p><b>mysqlshow -u root -p db_biblioteca</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 3: Desejo ver os campos pertencentes a uma tabela, nesse exemplo vai ser <b>tbl_autores.</b></i></p>
+        <p><b>mysqlshow -u root -p db_biblioteca tbl_autores %</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 4: Desejo trazer todas as tabelas iniciadas com um caracter especifico no meu banco de dados junto com o numero de linhas e colunas.</i></p>
+        <p><b>mysqlshow -vv -u -root -p db_biblioteca 't*'</b></p>
+        <p>O primeiro <b>v</b> é para o numero de colunas e o segundo <b>v</b> é para o numero de linhas.</p>
+        <p>O caracter <b>'t*'</b> é para trazer todas as tabelas que começem com a letra <b>t.</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 5: Desejo ver informações somente a respeito de 1 coluna especifica de uma tabela.</i></p>
+        <p><b>mysqlshow -u root -p db_biblioteca tbl_autores ID_autor</b></p>
+    </article>
+    <article>
+        <h2>Estruturas de Repetição <br>
+        LOOP / REPEAT / WHILE</h2>
+        <p>Usados em blocos interativos no qual é um bloco de código que é executado repetidamente por um comando especial até que uma condição de parada o interrompa.</p>
+        <p>Um bloco iterativo pode ser aninhado com outros blocos iterativos.</p>
+        <p>O MySQL possui três tipos básicos de blocos iterativos:</p>
+        <ul>
+            <li>LOOP</li>
+            <li>REPEAT</li>
+            <li>WHILE</li>
+        </ul>
+        <br>
+        <h3>LOOP</h3>
+        <p><i>Sintaxe:</i></p>
+        <p><b>[< rótulo >:] LOOP</b></p>
+        <p><b>declarações</b></p>
+        <p><b>END LOOP [< rótulo >];</b></p>
+        <br>
+        <p><i>Exemplo:</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE acumula (limite INT)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLARE contador INT DEFAULT 0;</b></p>
+        <p><b>DECLARE soma INT DEFAULT 0;</b></p>
+        <p><b>loop teste: LOOP</b></p>
+        <p><b>SET contador = contador + 1;</b></p>
+        <p><b>SET soma = soma + contador;</b></p>
+        <p><b>IF contador >= limite THEN</b></p>
+        <p><b>LEAVE loop_teste;</b></p>
+        <p><b>END IF;</b></p>
+        <p><b>END LOOP loop_teste;</b></p>
+        <p><b>SELECT soma;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Tentando:</i></p>
+        <p><b>CALL acumula(10);</b></p>
+    </article>
+    <article>
+        <h2>REPEAT</h2>
+        <p><i>Sintaxe:</i></p>
+        <p><b>[< rótulo: >] REPEAT</b></p>
+        <p><b>declarações</b></p>
+        <p><b>UNTIL condição</b></p>
+        <p><b>END REPEAT [< rótulo >];</b></p>
+        <br>
+        <p><i>EXEMPLO REPEAT 1:</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE acumula_repita (limite TINYINT UNSIGNED)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLARE contador TINYINT UNSIGNED DEFAULT 0;</b></p>
+        <p><b>DECLARE soma INT DEFAULT 0;</b></p>
+        <p><b>REPEAT</b></p>
+        <p><b>SET contador = contador + 1;</b></p>
+        <p><b>SET soma = soma + contador;</b></p>
+        <p><b>UNTIL contador >= limite</b></p>
+        <p><b>END REPEAT;</b></p>
+        <p><b>SELECT soma;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Testando a estrutura REPEAT:</i></p>
+        <p><b>CALL acumula_repita(10);</b></p>
+        <p><b>CALL acumula_repita(0);</b></p>
+        <p>Quando colocamos o limite como <b>0</b> da erro pois o contador é incrementado ANTES do teste condicional.</p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 2: REPEAT.</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE acumula_repita (limite TINYINT UNSIGNED)</b></p>
+        <p><b><i>main:</i> BEGIN</b></p>
+        <p><b>DECLARE contador TINYINT UNSIGNED DEFAULT 0;</b></p>
+        <p><b>DECLARE soma INT DEFAULT 0;</b></p>
+        <p><b>IF limite < 1 THEN</b></p>
+        <p><b>SELECTY 'O valor deve ser maior que zero.' AS Erro;</b></p>
+        <p><b>LEAVE main;</b></p>
+        <p><b>REPEAT</b></p>
+        <p><b>SET contador = contador + 1;</b></p>
+        <p><b>SET soma = soma + contador;</b></p>
+        <p><b>UNTIL contador >= limite</b></p>
+        <p><b>END REPEAT;</b></p>
+        <p><b>SELECT soma;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Testando a estrutura REPITA:</i></p>
+        <p><b>CALL acumula_repita(10);</b></p>
+        <p><b>CALL acumula_repita(0);</b></p>
+        <p>Nesse caso agora onde o valor passado é <b>0</b> a mensagem de <i>Erro</i> vai ser ativada.</p>
+    </article>
+    <article>
+        <h2>ESTRUTURA DE REPETIÇÃO - WHILE:</h2>
+        <p><i>SINTAXE:</i></p>
+        <p><b>[< rótulo: >] WHILE condição DO</b></p>
+        <p><b>declarações</b></p>
+        <p><b>END WHILE [< rótulo >];</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO WHILE:</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE PROCEDURE acumula_while (limite TINYINT UNSIGNED)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLARE contador TINYINT UNSIGNED DEFAULT 0;</b></p>
+        <p><b>DECLARE soma INT DEFAULT 0;</b></p>
+        <p><b>WHILE contador < limite DO</b></p>
+        <p><b>SET contador = contador + 1;</b></p>
+        <p><b>SET soma = soma + contador;</b></p>
+        <p><b>END WHILE;</b></p>
+        <p><b>SELECT soma;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Testando:</i></p>
+        <p><b>CALL acumula_while(10);</b></p>
+        <p><b>CALL acumula_while(0);</b></p>
+    </article>
+    <article>
+        <h2>Declaração ITERATE</h2>
+        <p><b>ITERATE</b> significa dentro de uma estrutura de repetição "inicie o loop novamente".</p>
+        <p>A declaração <b>ITERATE</b> aparece apenas dentro de estruturas LOOP, REPEAT  e WHILE.</p>
+        <br>
+        <p><i>Exemplo 1:</i></p>
+        <p><b>DELIMTER //</b></p>
+        <p><b>CREATE PROCEDERU acumula_iterate (limite TINYINT UNSIGNED)</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>DECLARE contador TINYINT UNSIGNED DEFAULT 0;</b></p>
+        <p><b>DECLARE soma INT UNSIGNED DEFAULT 0;</b></p>
+        <p><b>teste: LOOP</b></p>
+        <p><b>SET contador = contador + 1;</b></p>
+        <p><b>SET soma = soma + contador;</b></p>
+        <p><b>IF contador < limite THEN</b></p>
+        <p><b>ITERATE teste;</b></p>
+        <p><b>END IF;</b></p>
+        <p><b>LEAVE teste;</b></p>
+        <p><b>END LOOP teste;</b></p>
+        <p><b>SELECT soma;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Chamando o PROCEDU:</i></p>
+        <p><b>CALL acumula_iterate(10);</b></p>
+        <br>
+        <br>
+        <p><i>ITERATE COM WHILE:</i></p>
+        <p><b>DEMILITER //</b></p>
+        <p><b>CREATE PROCEDURE pares(limite TINYINT UNSIGNED)</b></p>
+        <p><b>main: BEGIN</b></p>
+        <p><b>DECLARE contador TINYINT DEFAULT 0;</b></p>
+        <p><b>meuloop: WHILE contador < limite DO</b></p>
+        <p><b>SET contador = contador + 1;</b></p>
+        <p><b>IF MOD(contador, 2) THEN</b></p>
+        <p><b>ITERATE meuloop;</b></p>
+        <p><b>END IF;</b></p>
+        <p><b>SELECT CONCAT(contador, 'é um número par') AS Valor;</b></p>
+        <p><b>END WHILE;</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <p><i>Testando:</i></p>
+        <p><b>CALL pares(20);</b></p>
+    </article>
+    <article>
+        <h2>Triggers:</h2>
+        <p><i>"gatilho"</i></p>
+        <br>
+        <p>Associado a uma tabela.</p>
+        <p>Procedimento invocado quando o comando DML é executado.</p>
+        <br>
+        <p><b>Usos de TRIGGER:</b></p>
+        <ul>
+            <li>Verificação de integridade dos dados</li>
+            <li>Validação dos dados</li>
+            <li>Rastreamento e registro de logs de atividades nas tabelas</li>
+            <li>Arquivamento de registros excluidos</li>
+            <li>Um TRINGGER é associado a uma tabela</li>
+            <li>Armazanado no BD como um arquivo seperado</li>
+            <li>Não são chamados diretamente, são invocados automaticamente</li>
+        </ul>
+        <br>
+        <p><i>SINTAXE DOS TRIGGERS:</i></p>
+        <p><b>CREATE TRIGGER nome timing operação</b></p>
+        <p><b>ON tabela</b></p>
+        <p><b>FOR EACH ROW</b></p>
+        <p><b>declarações</b></p>
+        <br>
+        <p><i>timing = BEFORE | AFTER</i></p>
+        <p><i>operação = INSERT | UPDATE | DELETE</i></p>
+        <br>
+        <br>
+        <h3>EXEMPLO:</h3>
+        <p><b>CREATE TABLE produto (</b></p>
+        <p><b>idProduto INT NOT NULL AUTO_INCREMENT, </b></p>
+        <p><b>Nome_produto VARCHAR(45) NULL,</b></p>
+        <p><b>Preco_Normal DECIMAL(10,2) NULL,</b></p>
+        <p><b>Preco_Desconto DECIMAL(10,2) NULL, </b></p>
+        <p><b>PRIMARY KEY (idProduto));</b></p>
+        <br>
+        <p><i>Criando o Trigger:</i></p>
+        <p><b>CREATE TRIGGER tr_desconto DEFORE INSERT</b></p>
+        <p><b>ON produto</b></p>
+        <p><b>FOR EACH ROW</b></p>
+        <p><b>SET NEW.Preco_Desconto = (NEW.Preco_Normal* 0.90);</b></p>
+        <br>
+        <p><b>INSERT INTO produto (Nome_produto, Preco_Normal)</b></p>
+        <p><b>VALUES ('Monitor', 1.00);</b></p>
+        <br>
+        <p><b>SELECT * FROM produto;</b></p>
+    </article>
+    <article>
+        <h2>Gerenciamento de Úsuarios do Sistema via prompt de comando<br>
+        Criar, Consultar, Renomear e Excluir </h2>
+        <ul>
+            <li>Logando no MySQL: mysql -u root -p</li>
+            <li>Colocar senha</li>
+        </ul>
+        <br>
+        <p>Para consultar os usuários do sistema você deve emitir o comando: <br>
+        <b>SELECT User FROM mysql.user;</b> <br>
+        Fazendo isso o mysql vai trazer todos os usuarios</p>
+        <br>
+        <p><i>Para ver apartir de qual host o usuario pode se conectar use o seguinte comando:</i> <br>
+        <b>SELECT User, Host FROM mysql.user;</b></p>
+        <h3>Criar Usuario</h3>
+        <p><i>Sintaxe:</i></p>
+        <p><b>CREATE USER matheus@localhost IDENTIFIED BY 'senha1234';</b></p>
+        <br>
+        <br>
+        <p><i>Para criar um usuario que pode se logar apartir de qualquer lugar ou maquina apenas nao defina o loca, exemplo:</i></p>
+        <p><b>CREATE USER nicolas IDENTIFIED BY 'senha1234';</b></p>
+        <br>
+        <br>
+        <p><i>Para criar um usuario sem senha siga o exemplo:</i></p>
+        <p><b>CREATE USER marcos@localhost;</b></p>
+        <br>
+        <p><i>Para dar uma senha a este usuario siga o exemplo:</i></p>
+        <p><b>SET PASSWORD FOR 'marcos'@'localhost' = PASSWORD('senha1234');</b></p>
+        <br>
+        <br>
+        <p><i>Renomeando usuario:</i></p>
+        <p><b>RENAME USER ana TO monica;</b></p>
+        <h3>Excluindo Usuario</h3>
+        <p><i>SINTAXE:</i></p>
+        <p><b>DROP USER nomeUser;</b></p>
+        <p>Exemplo:</p>
+        <p><b>DROP USER monica;</b></p>
+    </article>
+    <article>
+        <h2>Definindo privilégios de acesso com GRANT e REVOKE</h2>
+        <p><i>Antes de mais nada logue no mysql pelo <b>prompt de comando</b></i></p>
+        <ul>
+            <li>No prompt de comando digite: <i>mysql -u root -p</i></li>
+            <li>Digite sua senha</li>
+        </ul>
+        <br>
+        <p><b>Passo 2:</b> Agora vamos ver os usuarios do mysql</p>
+        <p><i>Digite: <b>SELECT User,Host FROM mysql.user;</b></i></p>
+        <br>
+        <p>No exemplo encontramos um usuario chamado fabio com host no local host.</p>
+        <br>
+        <p><i>Agora digite o seguinte comando para atribuir privilegios:</i></p>
+        <p><b>SHOW GRANTS FOR fabio@localhost;</b></p>
+        <h3>Criando usuarios com privilegios</h3>
+        <p><i>Criar um usuario com privilegios nenhum:</i></p>
+        <p><b>GRANT USAGE</b></p>
+        <p><b>ON *.*</b></p>
+        <p><b>TO julia@localhost IDENTIFIED BY '1234';</b></p>
+        <br>
+        <br>
+        <p><i>Criar um usuario com todos os privilégios:</i></p>
+        <p><b>GRANT ALL</b></p>
+        <p><b>ON *.*</b></p>
+        <p><b>TO  alexandre IDENTIFIED BY '1234'</b></p>
+        <p><b>WHITE GRANT OPTION;</b></p>
+        <br>
+        <br>
+        <p><i>Quero criar um usuario que tenha os privileios de selecionar, inserir, atualizar e deletar:</i></p>
+        <p><b>CREATE USER ana@localhost IDENTIFIED BY '1234';</b></p>
+        <br>
+        <p><b>GRANT SELECT, INSERT, UPDATE, DELETE</b></p>
+        <p><b>ON db_biblioteca.*</b></p>
+        <p><b>TO ana@localhost;</b></p>
+        <br>
+        <p><i>O * em db_biblioteca.* significa que o privilegio é em todas as tabelas!</i></p>
+        <br>
+        <br>
+        <p>Desejo dar o privilegio para um usuario de modificar somente os nomes e sobrenomes de autores dos livros em uma certa tabela:</p>
+        <p><b>GRANT SELECT(nome_autor, sobrenome_autor), UPDATE(nome_autor)</b></p>
+        <p><b>ON db_biblioteca.tbl_autores</b></p>
+        <p><b>TO fabio@localhost;</b></p>
+        <br>
+        <p><i>PARA VER OS PRIVELIOS DO USUARIO DIGITE:</i></p>
+        <p><b>SHOW GRANTS FOR nome_user@localhost;</b></p>
+        <h3>Removendo privilégios</h3>
+        <p>Removeremos o privilegio de deletar coisas na tabela db_biblioteca de uma usuaria chamada ana:</p>
+        <p><b>REVOKE DELETE</b></p>
+        <p><b>ON db_biblioteca.*</b></p>
+        <p><b>FROM ana@localhost;</b></p>
+        <br>
+        <br>
+        <p><i>Removendo todos os privilégios incluindo o GRANT OPTION de 2 usuarios:</i></p>
+        <p><b>REMOKE ALL, GRANT OPTION</b></p>
+        <p><b>FROM alexandre, ana@localhost;</b></p>
+    </article>
+    <article>
+        <h2>Campos Gerados - Colunas Calculadas</h2>
+        <p><i>Sintaxe:</i></p>
+        <p><b>nome_coluna tipo_dados AS expressão [VIRTUAL | STORED]</b></p>
+        <p><b>contraints</b></p>
+        <br>
+        <p><b>VIRTUAL:</b> É gerado toda vez que a tabela é acessada, mas não fica salvo.</p>
+        <p><b>STORED:</b> Fica salvo no banco de dados.</p>
+        <br>
+        <br>
+        <p><i>EXEMPLO:</i></p>
+        <p><b>CREATE TABLE tbl_vendas (</b></p>
+        <p><b>ID_venda SMALLINT PRIMARY KEY AUTO_INCREMENT,</b></p>
+        <p><b>Preco_Produto DECIMAL(6,2) NOT NULL,</b></p>
+        <p><b>Qtde TINYINT NOT NULL,</b></p>
+        <p><b>Desconto DECIMAL(4,2) NOT NULL,</b></p>
+        <p><b>Preco_Total DECIMAL(6,2) AS (Preco_Produto * Qtde * (1 - Desconto / 100)) STORED</b></p>
+        <p><b>);</b></p>
+        <br>
+        <p><i>Inserindo dados:</i></p>
+        <p><b>INSERT INTO tbl_vendas (Preco_Produto, Qtde, Desconto)</b></p>
+        <p><b>VALUES</b></p>
+        <p><b>(50.00, 2, 20),</b></p>
+        <p><b>(65.00, 3, 15),</b></p>
+        <p><b>(100.00, 1, 12),</b></p>
+        <p><b>(132.00, 3, 18);</b></p>
+        <br>
+        <p><i>Vendo a tabela:</i></p>
+        <p><b>SELECT * FROM tbl_vendas;</b></p>
+    </article>
+    <article>
+        <h2>ENUM - Tipo de Dado de Enumeração</h2>
+        <p><i>Tipo de dado usado quando não queremos por Deus sabe o porque criar uma nova tabela. <br>
+        É usado quando sabemos que não sera alterado nada, caso haja chance de mudar alguma coisa é recomendado que não se use ENUM.</i></p>
+        <br>
+        <p><b><i>Exemplo:</i></b></p>
+        <p><b>CREATE TABLE camisas (</b></p>
+        <p><b>idCamisa TINYINT PRIMARY KEY AUTO_INCREMENT,</b></p>
+        <p><b>nome VARCHAR(25),</b></p>
+        <p><b>tamanho ENUM('pequena', 'média', 'grande', 'extra-grande')</b></p>
+        <p><b>);</b></p>
+        <br>
+        <br>
+        <p><i>Inserindo informações na tabela camisas:</i></p>
+        <p><b>INSERT INTO camisas (nome, tamanho)</b></p>
+        <p><b>VALUES ('regata', 'grande');</b></p>
+        <br>
+        <p><b>SELECT * FROM camisas;</b></p>
+        <br>
+        <br>
+        <p><i><b>Consultar os valores permissíveis para a coluna:</b></i></p>
+        <p><b>SHOW COLUMNS</b></p>
+        <p><b>FROM camisas</b></p>
+        <p><b>LIKE 'tamanho';</b></p>
+        <br>
+        <br>
+        <p><b><i>Visualizar números de indice dos valores enumerados:</i></b></p>
+        <p><b>SELECT nome, tamanho+0</b></p>
+        <p><b>FROM camisas;</b></p>
+    </article>
+    <article>
+        <h2>Operador UNION - Unir dois ou mais resultados de consulta</h2>
+        <p>Combina dados provenientes de duas ou mais consultas. <br>
+        Uma UNION combina as linhas de dois ou mais conjuntos de resultados. <br>
+        Cada declaração SELECT deve ter o mesmo número de colunas, tipos de dados e ordem das colunas</p>
+        <br>
+        <p><i>SINTAXE:</i></p>
+        <p><b>SELECT declaração1</b></p>
+        <p><b>UNION [ALL]</b></p>
+        <p><b>SELECT declaração2</b></p>
+        <p><b>UNION [ALL]</b></p>
+        <p><b>SELECT declaração3...</b></p>
+        <p><b>[ORDER BY colunas];</b></p>
+        <br>
+        <p><i>EXEMPLO 1:</i></p>
+        <p>Retornar nomes de livros e preços dos livros.</p>
+        <p>Caso o preço do livro seja igual ou superior a R$ 60,00, mostrar a mensagem "Livro Caro' em uma coluna à direita no resultado da consulta.</p>
+        <p>Caso contrário, mostrar a mensagem "Preço Razoável" ordenar por preço, do mais barato para o mais caro</p>
+        <br>
+        <p><i>Exemplo em prática:</i></p>
+        <p><b>SELECT Nome_Livro Livro, Preco_Livro Preço,</b></p>
+        <p><b>'Livro Caro' Resultado</b></p>
+        <p><b>FROM tbl_Livros</b></p>
+        <p><b>WHERE Preco_Livro >= 60.00</b></p>
+        <p><b>UNION</b></p>
+        <p><b>SELECT Nome_Livro Livro, Preco_Livro Preço,</b></p>
+        <p><b>'Preço Razoável' Resultado</b></p>
+        <p><b>FROM tbl_Livros</b></p>
+        <p><b>WHERE Preco_Livro < 60.00</b></p>
+        <p><b>ORDER BY Preço;</b></p>
+    </article>
+    <article>
+        <h2>Como agendar Eventos</h2>
+        <h3>Tipos de Agendamento</h3>
+        <p>O agendamento de um evento pode ser de dois tipos:</p>
+        <ul>
+            <li>Agendamento único: Ocorre apenas uma vez, em um momento especificado.</li>
+            <li>Agendamento recorrente: Se repete em intervalos de tempo configurados.</li>
+        </ul>
+        <h3>Variável event_scheduler</h3>
+        <p>Para trabalhar com eventos, é necessário ativar o agendador de eventos (event scheduler). Por padrão, está desligado.</p>
+        <br>
+        <p>Verificar o estado do agendador de evento:</p>
+        <p><b>SHOW VARIABLES LIKE 'event%';</b></p>
+        <p>Variável: <b>event_scheduler</b></p>
+        <br>
+        <p>Ativar / desativar o agendados de eventos:</p>
+        <p><b>SET GLOBAL event_scheduler = ON | OFF </b></p>
+        <h3>CREAE EVENT</h3>
+        <p>Sintaxe para criação de um novo evento:</p>
+        <p><b>CREATE EVENTE nome_evento</b></p>
+        <p><b>ON SHEDULE</b></p>
+        <p><b>{AT timestamp | EVERY intervalo</b></p>
+            <p><b>[STARTS timestamp] [ENDS timestamp]}</b></p>
+            <p><b>[ON COMPLETION PRESERVE]</b></p>
+            <p><b>DO</b></p>
+            <p><b>bloco_comandos_SQL || procediment</b></p>
+        <h3>ALTER EVENT</h3>
+        <p>Podemos alterar um evento já criado por meio da declaração ALTER EVENT</p>
+        <br>
+        <p><b>ALTER EVENT nome_evento AÇÃO</b></p>
+        <br>
+        <p>Com essa declaração é possivel habilitar ou desabilitar um evento, ou renomeá-lo.</p>
+        <p><b>AÇÃO</b> incluir <b>DISABLE, ENABLE e RENAME TO</b></p>
+        <h3>SHOW EVENTS</h3>
+        <p>A declaração SHOW EVENTS permite visualizar os eventos programados no banco de dados.</p>
+        <p>Sintaxe:></p>
+        <p><b>SHOW EVENTS FROM banco_dados;</b></p>
+        <h3>DROP EVENT</h3>
+        <p>Podemos excluir um evento com a declaração DROP EVENT.</p>
+        <p>Sintaxe:</p>
+        <p><b>DROP EVENT nome_evento;</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo 1: Evento imediato</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE EVENT insert_imediato</b></p>
+        <p><b>ON SCHEDULE AT CURRENT_TIMESTAMP</b></p>
+        <p><b>DO</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>INSERT INTO tbl_editoras(NomeEditora)</b></p>
+        <p><b>VALUES ('Boson Books');</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 2: Evento Futuro</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE EVENT insert_em_um_mes</b></p>
+        <p><b>ON SCHEDULE AT NOW() + INTERVAL 1 MONTH</b></p>
+        <p><b>DO BEGIN</b></p>
+        <p><b>INSERT INTO tbl_editoras(NomeEditora)</b></p>
+        <p><b>VALUES ('Tech Books Brazil');</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLO 3: Evento Recorrente</i></p>
+        <p><b>DELIMITER //</b></p>
+        <p><b>CREATE EVENT insert_mensal</b></p>
+        <p><b>ON SCHEDULE EVERY 1 MONTH</b></p>
+        <p><b>STARTS '2024-01-11'</b></p>
+        <p><b>ENDS '2026-12-25'</b></p>
+        <p><b>DO</b></p>
+        <p><b>BEGIN</b></p>
+        <p><b>INSERT INTO tbl_Editoras(NomeEditora)</b></p>
+        <p><b>VALUES ('Boson Books');</b></p>
+        <p><b>END//</b></p>
+        <p><b>DELIMITER ;</b></p>
+    </article>
+    <article>
+        <h2>Subconsultas</h2>
+        <p><i>Sintaxe:</i></p>
+        <p><b>SELECT colunas(s)</b></p>
+        <p><b>FROM tabela(s)</b></p>
+        <p><b>WHERE coluna operador (SELECT coluna FROM tabela WHERE condições)</b></p>
+        <br>
+        <br>
+        <p><i>EXEMPLOS 1:</i></p>
+        <p><b>SELECT Nome_Livro, Preco_Livro, IdEditora</b></p>
+        <p><b>FROM tbl_Livro</b></p>
+        <p><b>WHERE idEditora = </b></p>
+        <p><b>(SELECT idEditora </b></p>
+        <p><b>FROM tbl_Editora</b></p>
+        <p><b>WHERE NomeEditora = 'Wiley');</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo 2:</i></p>
+        <p><b>UPDATE tbl_Livro</b></p>
+        <p><b>SET Preco_Livro = Preco_livro * 1.12</b></p>
+        <p><b>WHERE idEditora = </b></p>
+        <p><b>(SELECT idEditora</b></p>
+        <p><b>FROM tbl_Editora</b></p>
+        <p><b>WHERE Nome_Editora = 'Microsoft Press');</b></p>
+    </article>
+    <article>
+        <h2>Funções de Arredondamento <br>
+        ROUND, FLOOR, CEILING, TRUNCETE</h2>
+        <h3>Função ROUND()</h3>
+        <p><i>Exemplo 1:</i></p>
+        <p>Supomos que eu queira retornar o PrecoLivro de uma tabela usando a função ROUND</p>
+        <p><b>SELECT PrecoLivro AS 'Preço Real',</b></p>
+        <p><b>ROUND(PrecoLivro, 1) AS 'Valores Arredondados'</b></p>
+        <p><b>FROM tbl_livros</b></p>
+        <p><b>WHERE PrecoLivro > 150.00;</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo 2:</i></p>
+        <p>Pegando a média do PrecoLivro</p>
+        <p><b>SELECT AVG(PrecoLivro) AS 'Preço Médio',</b></p>
+        <p><b>ROUND(AVG(PrecoLivro), 2) AS 'Preço Médio Arredondado'</b></p>
+        <p><b>FROM tbl_Livros;</b></p>
+        <h3>Função TRUNCATE</h3>
+        <P>A função TRUNCATE ela trunca o numero, ela apena exibe o número de casas indicados, sem arredondar.</P>
+        <p><i>Exemplo 1: </i></p>
+        <p><b>SELECT PrecoLivro AS 'Preço Real',</b></p>
+        <p><b>TRUNCATE(PrecoLivro, 0) AS 'Reais sem centavos'</b></p>
+        <p><b>FROM tbl_livros</b></p>
+        <p><b>WHERE PrecoLivro > 150.00;</b></p>
+        <br>
+        <p><i><b>TRUNCATE() não tem nada a haver om TRUNCATE TABLE</b></i></p>
+        <h3>Função FLOOR()</h3>
+        <p>Arredonda um valor para baixo</p>
+        <p><i>Exemplo 1:</i></p>
+        SELECT FLOOR(63.757) AS Arredondado;
+        <br>
+        <br>
+        <p><b>SELECT PrecoLivro AS 'Preço Real',</b></p>
+        <p><b>FLOOR(PrecoLivro) AS 'Valores Arredondados para baixo'</b></p>
+        <p><b>FROM tbl_livros</b></p>
+        <p><b>WHERE PrecoLivro > 150.00;</b></p>
+        <h3>Função CEILOING ou CEIL</h3>
+        <p>É o inverso da função FLOOR, essa arredonda para cima</p>
+        <p><b>SELECT PrecoLivro AS 'Preço Real',</b></p>
+        <p><b>CEILOING(PrecoLivro) AS 'Valores Arredondados'</b></p>
+        <p><b>FROM tbl_livros</b></p>
+        <p><b>WHERE PrecoLivro > 150.00;</b></p>
+    </article>
+    <article>
+        <h2>TRANSAÇÕES NO MySQL</h2>
+        <p>Aploca propriedades ACID</p>
+        <p>Atomicidade</p>
+        <p>Consistência</p>
+        <p>Isolamento</p>
+        <p>Durabilidade</p>
+        <br>
+        <p>Deve ser executada de forma completa ou não ter nenhum efeito nas tabelas</p>
+        <br>
+        <p><b>COMMIT -</b> Consolidação da transação</p>
+        <p><b>ROLLBACK -</b> Transação totalmente desfeita</p>
+        <br>
+        <br>
+        <p><i>No <b>MySQL</b> por padrão vem habilitado o <b>autocommit</b></i></p>
+        <br>
+        <p><i>Exemplo:</i></p>
+        <p>Desligar o autocommit:</p>
+        <p><b>SET @@autocommit = OFF;</b></p>
+        <p><b>SELECT @@autocommit;</b></p>
+        <br>
+        <p>Criar tabela:</p>
+        <p><b>CREATE TABLE Dados_Livro</b></p>
+        <p><b>SELECT NomeLivro, ISBN13, PrecoLivro</b></p>
+        <p><b>FROM tbl_Livros;</b></p>
+        <br>
+        <br>
+        <p>Transação com rollback</p>
+        <p><b>START TRANSACTION;</b></p>
+        <p><b>DELETE FROM Dados_Livro;</b></p>
+        <p><b>INSERT INTO Dados_Livro(NomeLivro, ISBN13, PrecoLivro)</b></p>
+        <p><b>VALUES('Ciência de Dados com Python', '98765432145632', 69.99);</b></p>
+        <p><b>SELECT * FROM Dados_Livro;</b></p>
+        <p><b>ROLLBACK;</b></p>
+        <br>
+        <p><b>SELECT * FROM Dados_Livro;</b></p>
+        <br>
+        <br>
+        <p>Transação com commit</p>
+        <p><b>START TRANSACTION;</b></p>
+        <p><b>DELETE FROM Dados_Livro;</b></p>
+        <p><b>INSERT INTO Dados_Livro(NomeLivro, ISBN13, PrecoLivro)</b></p>
+        <p><b>VALUES('Ciência de Dados com Python', '98765432145632', 69.99);</b></p>
+        <p><b>SELECT * FROM Dados_Livro;</b></p>
+        <p><b>COMMIT;</b></p>
+        <br>
+        <p><b>SELECT * FROM Dados_Livro;</b></p>
+        <br>
+        <br>
+        <p><i>Veja como fazer uma variavel que se torna <b>TRUE</b> se algo der errado:</i></p>
+        <p><b>DECLARE erro_sql TINYINT DEFAULT FALSE;</b></p>
+        <p><b>DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET erro_sql = TRUE;</b></p>
+    </article>
 </body>
 </html>
