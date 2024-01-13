@@ -1932,5 +1932,115 @@
         <p><b>DECLARE erro_sql TINYINT DEFAULT FALSE;</b></p>
         <p><b>DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET erro_sql = TRUE;</b></p>
     </article>
+    <article>
+        <h2>Criação de Chave Primaria</h2>
+        <h3>Criando uma chave primaria junto da tabela:</h3>
+        <p><b>CREATE TABLE funcionarios (</b></p>
+        <p><b>id_func SMALLINT PRIMARY KEY AUTO_INCREMENT,</b></p>
+        <p><b>nome_func VARCHAR(50) NOT NULL,</b></p>
+        <p><b>sobrenome_func VARCHAR(50) NOT NULL</b></p>
+        <p><b>);</b></p>
+        <br>
+        <br>
+        <p><i>Conferir a tabela criada e sua chave primária:</i></p>
+        <p><b>DESCRIBE funcionarios;</b></p>
+        <h3>Criando uma chave primaria com nome:</h3>
+        <p><b>CREATE TABLE departamentos (</b></p>
+        <p><b>id_dep SMALLINT AUTO_INCREMENT,</b></p>
+        <p><b>nome_dep VARCHAR(30) NOT NULL,</b></p>
+        <p><b>CONSTRAINT pk_id_dep PRIMARY KEY (id_dep)</b></p>
+        <p><b>);</b></p>
+        <br>
+        <br>
+        <p><i>Conferir a tabela criada:</i></p>
+        <p><b>DESCRIBE departamentos;</b></p>
+        <h3>Criei uma tabela e esqueci de criar chave primaria:</h3>
+        <p><b>CREATE TABLE fornecedores (</b></p>
+        <p><b>id_forn SMALLINT,</b></p>
+        <p><b>nome_forn VARCHAR(30) NOT NULL</b></p>
+        <p><b>);</b></p>
+        <br>
+        <p><i>Conferir a tabela:</i></p>
+        <p><b>DESCRIBE fornecedores;</b></p>
+        <br>
+        <p><i>Adicionar a restrição de PK a uma coluna:</i></p>
+        <p><b>ALTER TABLE fornecedores</b></p>
+        <p><b>ADD PRIMARY KEY (id_forn);</b></p>
+        <br>
+        <p><b>DESCRIBE fornecedores;</b></p>
+    </article>
+    <article>
+        <h2>Criação de Chave Primária Composta</h2>
+        <p><i>Exemplo:</i></p>
+        <p><b>CREATE TABLE vendas (</b></p>
+        <p><b>id_produto SMALLINT,</b></p>
+        <p><b>id_cliente SMALLINT,</b></p>
+        <p><b>qtde SMALLINT,</b></p>
+        <p><b>CONSTRAINT PRIMARY KEY (id_produto, id_cliente)</b></p>
+        <p><b>);</b></p>
+        <br>
+        <p><b>DESCRIBE vendas;</b></p>
+    </article>
+    <article>
+        <h2>Importar CSV</h2>
+        <p><i>Exemplo arquivo CSV:</i></p>
+        <p>Matheus, Nicolas, Dioneide, Yuri, Jarbas, Juci</p>
+        <br>
+        <br>
+        <p><i>Importar CSV: Sintaxe</i></p>
+        <p><b>LOAD DATA INFILE 'caminho/do/arquivo.csv'</b></p>
+        <p><b>INTO TABLE nome_tabela</b></p>
+        <p><b>FIELDS TERMINATED BY 'delimitador'</b></p>
+        <p><b>ENCLOSED BY 'caractere'</b></p>
+        <p><b>LINES TERMINATED BY 'caractere_de_quebra'</b></p>
+        <p><b>IGNORE X ROWS;</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo:</i></p>
+        <p><b>USE db_meuslivros;</b></p>
+        <br>
+        <p><b>LOAD DATA INFILE 'C::/ProgramaData/MySQL/MySQL Server 8.0/Uploads/autores.csv'</b></p>
+        <p><b>INTO TABLE tbl_autores</b></p>
+        <p><b>FIELDS TERMINATED BY ','</b></p>
+        <p><b>ENCLOSED BY '"'</b></p>
+        <p><b>LINES TERMINATED BY '\n'</b></p>
+        <p><b>IGNORE 1 ROWS</b></p>
+        <p><b>(nomeAutor, sobrenomeAutor);</b></p>
+        <br>
+        <p><b>SELECT * FROM tbl_autores;</b></p>
+        <h3>Exportar CS: Sintaxe</h3>
+        <p><b>SELECT colunas</b></p>
+        <p><b>FROM tabela</b></p>
+        <p><b>INTO OUTFILE 'caminho/do/arquivo.csv'</b></p>
+        <p><b>FIELDS TERMINATED BY 'delimitador'</b></p>
+        <p><b>ENCLOSED BY 'caractere'</b></p>
+        <p><b>LINES TERMINATED BY 'caractere_de_quebra'</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo:</i></p>
+        <p><b>(SELECT 'Livro', 'Preço', 'Editora')</b></p>
+        <p><b>UNION</b></p>
+        <p><b>SELECT L.nomeLivro, L.precoLivro, E.nomeEditora</b></p>
+        <p><b>FROM tbl_livros L</b></p>
+        <p><b>INNER JOIN tbl_editoras E</b></p>
+        <p><b>ON L.idEditora = E.idEditora</b></p>
+        <p><b>INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/teste.csv'</b></p>
+        <p><b>FIELDS TERMINATED BY ','</b></p>
+        <p><b>ENCLOSED BY '"'</b></p>
+        <p><b>LINES TERMINATED BY '\n';</b></p>
+    </article>
+    <article>
+        <h2>Como retornar linhas aleatórias de uma tabela no MySQL</h2>
+        <p>Usamos a <b>Função RAND()</b></p>
+        <br>
+        <br>
+        <p><i>Exemplo:</i></p>
+        <p>SELECT RAND();</p>
+        <br>
+        <br>
+        <p><i>SELECT * FROM tbl_livros</i></p>
+        <p><b>ORDER BY RAND()</b></p>
+        <p><b>LIMIT 3;</b></p>
+    </article>
 </body>
 </html>
